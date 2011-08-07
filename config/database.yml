@@ -11,7 +11,7 @@ development:
   reconnect: false
   database: wherewerewe_development
   pool: 5
-  username: root
+  username: wherewerewe
   password:
   socket: /tmp/mysql.sock
 
@@ -24,7 +24,7 @@ test:
   reconnect: false
   database: wherewerewe_test
   pool: 5
-  username: root
+  username: wherewerewe
   password:
   socket: /tmp/mysql.sock
 
@@ -34,6 +34,6 @@ production:
   reconnect: false
   database: wherewerewe_production
   pool: 5
-  username: root
+  username: wherewerewe
   password:
   socket: /tmp/mysql.sock
