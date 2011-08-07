@@ -1,0 +1,6 @@
+--colour
+/*--format progress # This is the default I believe*/
+--format documentation
+--profile
+/*--backtrace*/
+--debug
