@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :series do
-    tvdb_id 12
+    sequence(:tvdb_id)
     name "Living the high life"
     overview "A series about two Capetonians..."
     last_updated 1.day.ago

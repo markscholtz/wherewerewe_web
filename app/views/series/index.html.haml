@@ -1,2 +1,4 @@
-%h1 Series#index
-%p Find me in app/views/series/index.html.haml
+- @all_series.each do |series|
+  %div
+    %h1= series.name
+    %p= series.overview
