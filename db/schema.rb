@@ -10,13 +10,46 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110807155237) do
+ActiveRecord::Schema.define(:version => 20110813184456) do
+
+  create_table "episodes", :force => true do |t|
+    t.integer  "tvdb_id",      :null => false
+    t.string   "name",         :null => false
+    t.string   "overview",     :null => false
+    t.datetime "last_updated", :null => false
+    t.integer  "series_id",    :null => false
+    t.integer  "season_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "seasons", :force => true do |t|
+    t.integer  "tvdb_id",    :null => false
+    t.integer  "number",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "series", :force => true do |t|
-    t.integer  "tvdb_id"
-    t.string   "name"
-    t.string   "overview"
-    t.datetime "last_updated"
+    t.integer  "tvdb_id",      :null => false
+    t.string   "name",         :null => false
+    t.string   "overview",     :null => false
+    t.datetime "last_updated", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "viewings", :force => true do |t|
+    t.integer  "episode_id",                    :null => false
+    t.integer  "user_id",                       :null => false
+    t.boolean  "viewed",     :default => false, :null => false
+    t.datetime "viewed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

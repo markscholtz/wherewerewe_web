@@ -40,4 +40,23 @@ describe Series do
       @series.errors_on(:last_updated).should_not be_blank
     end
   end
+
+  describe 'scopes' do
+    before :each do
+      @series = Factory(:series)
+    end
+
+    describe 'last_viewing' do
+      it 'should return the watched viewing' do
+        episode1 = Factory.build(:episode, :series => @series)
+        episode2 = Factory.build(:episode, :series => @series)
+        episode3 = Factory.build(:episode, :series => @series)
+        viewing1 = Factory.build(:viewing, :episode => episode1, :viewed_at => 2.days.ago)
+        viewing2 = Factory.build(:viewing, :episode => episode2)
+        viewing3 = Factory.build(:viewing, :episode => episode3, :viewed_at => 1.days.ago)
+
+        @series.last_viewing.should == viewing3
+      end
+    end
+  end
 end
