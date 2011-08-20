@@ -1,5 +1,5 @@
 class SeriesController < ApplicationController
   def index
-    @all_series = Series.all
+    @user = User.first
   end
 end
