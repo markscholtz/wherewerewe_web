@@ -38,9 +38,6 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'guard-spork'
   gem 'spork', '~> 0.9.0.rc'
-end
-
-group :development do
   gem 'pry'
   gem 'pry-doc'
 end
