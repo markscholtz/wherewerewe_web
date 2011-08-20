@@ -42,21 +42,40 @@ describe Series do
   end
 
   describe 'scopes' do
+    describe 'viewed_by_user' do
+      before :each do
+        @user1 = Factory(:user)
+        @user2 = Factory(:user)
+        @series1 = Factory(:series)
+        @episode1 = Factory(:episode, :series => @series1)
+        @viewing1 = Factory(:viewing, :user => @user1, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
+        @viewing2 = Factory(:viewing, :user => @user1, :episode => @episode1, :series => @series1)
+        @viewing3 = Factory(:viewing, :user => @user2, :episode => @episode1, :series => @series1)
+      end
+
+      it 'should return true if the series has any episodes that have been viewed by the user' do
+        Series.viewed_by_user(@user1.id).should == [@series1]
+        Series.viewed_by_user(@user2.id).should be_empty
+      end
+    end
+  end
+
+  describe 'viewed?' do
     before :each do
+      @user = Factory(:user)
       @series = Factory(:series)
+      @episode = Factory(:episode, :series => @series)
+      @viewing = Factory(:viewing, :user => @user, :episode => @episode, :series => @series, :viewed_at => 3.days.ago)
     end
 
-    describe 'last_viewing' do
-      it 'should return the watched viewing' do
-        episode1 = Factory.build(:episode, :series => @series)
-        episode2 = Factory.build(:episode, :series => @series)
-        episode3 = Factory.build(:episode, :series => @series)
-        viewing1 = Factory.build(:viewing, :episode => episode1, :viewed_at => 2.days.ago)
-        viewing2 = Factory.build(:viewing, :episode => episode2)
-        viewing3 = Factory.build(:viewing, :episode => episode3, :viewed_at => 1.days.ago)
+    it 'should return true if the user has viewed any episodes' do
+      @series.viewed?(@user.id).should be_true
+    end
 
-        @series.last_viewing.should == viewing3
-      end
+    it 'should return false if the user has not viewed any episodes' do
+      @viewing.viewed_at = nil
+      @viewing.save
+      @series.viewed?(@user.id).should be_false
     end
   end
 end

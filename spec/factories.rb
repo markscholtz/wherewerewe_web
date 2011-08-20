@@ -29,6 +29,7 @@ FactoryGirl.define do
 
   factory :viewing do
     episode
+    series
     user
   end
 end

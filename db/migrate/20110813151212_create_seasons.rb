@@ -3,6 +3,7 @@ class CreateSeasons < ActiveRecord::Migration
     create_table :seasons do |t|
       t.integer :tvdb_id, :null => false
       t.integer :number, :null => false
+      t.integer :series_id, :null => false
 
       t.timestamps
     end

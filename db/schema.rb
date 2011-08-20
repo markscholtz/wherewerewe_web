@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110813184456) do
   create_table "seasons", :force => true do |t|
     t.integer  "tvdb_id",    :null => false
     t.integer  "number",     :null => false
+    t.integer  "series_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20110813184456) do
   end
 
   create_table "viewings", :force => true do |t|
-    t.integer  "episode_id",                    :null => false
-    t.integer  "user_id",                       :null => false
-    t.boolean  "viewed",     :default => false, :null => false
+    t.integer  "episode_id", :null => false
+    t.integer  "series_id",  :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "viewed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
