@@ -20,15 +20,22 @@ feature 'User Series', %q{
   end
 
   scenario 'Viewing the "currently watching" series' do
+    first_series = @user.series.first
+    second_series = @user.series.second
+    last_viewing = Viewing.last(user_id: @user.id, series_id: @user.series[0].id).first
+    #next_viewing = Viewing.next(user_id: @user.id, series_id: @user.series[0].id).first
+
     visit series_index_path
 
     #save_and_open_page
-    page.should have_content @user.series[0].name
-    page.should have_content @user.series[0].overview
-    page.should have_content Viewing.last_viewed(user_id: @user.id, series_id: @user.series[0].id).first.episode.name
+    page.should have_content first_series.name
+    page.should have_content first_series.overview
+    page.should have_content last_viewing.episode.name
+    page.should have_content last_viewing.episode.overview
+    #page.should have_content next_viewing.episode.name
+    #page.should have_content next_viewing.episode.overview
 
-    page.should have_content @user.series[1].name
-    page.should have_content @user.series[1].overview
-    page.should_not have_content Viewing.last_viewed(user_id: @user.id, series_id: @user.series[1].id).first.episode.name
+    page.should have_content second_series.name
+    page.should have_content second_series.overview
   end
 end

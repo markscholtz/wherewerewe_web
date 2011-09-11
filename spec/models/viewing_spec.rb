@@ -50,32 +50,52 @@ describe Viewing do
   end
 
   describe 'scopes' do
-    describe 'last_viewed' do
-      before :each do
-        @user1 = Factory(:user)
-        @user2 = Factory(:user)
-        @series1 = Factory(:series)
-        @series2 = Factory(:series)
-        @series3 = Factory(:series)
-        @episode1 = Factory(:episode, :series => @series1)
-        @episode2 = Factory(:episode, :series => @series1)
-        @episode3 = Factory(:episode, :series => @series1)
-        @episode4 = Factory(:episode, :series => @series2)
-        @viewing1 = Factory(:viewing, :user => @user1, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
-        @viewing2 = Factory(:viewing, :user => @user1, :episode => @episode2, :series => @series1)
-        @viewing3 = Factory(:viewing, :user => @user1, :episode => @episode3, :series => @series1, :viewed_at => 2.days.ago)
-        @viewing4 = Factory(:viewing, :user => @user2, :episode => @episode3, :series => @series1, :viewed_at => 5.days.ago)
-        @viewing5 = Factory(:viewing, :user => @user1, :episode => @episode4, :series => @series2, :viewed_at => 6.days.ago)
-        @viewing6 = Factory(:viewing, :user => @user2, :episode => @episode1, :series => @series2, :viewed_at => 1.days.ago)
-        @viewing7 = Factory(:viewing, :user => @user2, :episode => @episode1, :series => @series3)
-      end
+    before :each do
+      @mark = Factory(:user)
+      @jo   = Factory(:user)
+      @boston_legal  = Factory(:series)
+      @house         = Factory(:series)
+      @grays_anatomy = Factory(:series)
+      @dawsons_creek = Factory(:series)
+      @bl_ep1  = Factory(:episode, :number => 1, :series => @boston_legal)
+      @bl_ep2  = Factory(:episode, :number => 2, :series => @boston_legal)
+      @bl_ep3  = Factory(:episode, :number => 3, :series => @boston_legal)
+      @h_ep1   = Factory(:episode, :number => 1, :series => @house)
+      @h_ep2   = Factory(:episode, :number => 2, :series => @house)
+      @h_ep3   = Factory(:episode, :number => 3, :series => @house)
+      @h_ep4   = Factory(:episode, :number => 4, :series => @house)
+      @ga_ep1  = Factory(:episode, :number => 1, :series => @grays_anatomy)
+      @ga_ep2  = Factory(:episode, :number => 2, :series => @grays_anatomy)
+      @mark_v1 = Factory(:viewing, :user => @mark, :episode => @bl_ep1, :series => @boston_legal, :viewed_at => 3.days.ago)
+      @mark_v2 = Factory(:viewing, :user => @mark, :episode => @bl_ep2, :series => @boston_legal)
+      @mark_v3 = Factory(:viewing, :user => @mark, :episode => @bl_ep3, :series => @boston_legal, :viewed_at => 2.days.ago)
+      @mark_v4 = Factory(:viewing, :user => @mark, :episode => @h_ep1,  :series => @house,        :viewed_at => 6.days.ago)
+      @mark_v5 = Factory(:viewing, :user => @mark, :episode => @h_ep2,  :series => @house,        :viewed_at => 8.days.ago)
+      @mark_v6 = Factory(:viewing, :user => @mark, :episode => @h_ep4,  :series => @house)
+      @mark_v7 = Factory(:viewing, :user => @mark, :episode => @h_ep3,  :series => @house)
+      @jo_v1   = Factory(:viewing, :user => @jo,   :episode => @bl_ep3, :series => @boston_legal, :viewed_at => 5.days.ago)
+      @jo_v2   = Factory(:viewing, :user => @jo,   :episode => @bl_ep2, :series => @boston_legal)
+      @jo_v3   = Factory(:viewing, :user => @jo,   :episode => @bl_ep1, :series => @boston_legal)
+      @jo_v4   = Factory(:viewing, :user => @jo,   :episode => @ga_ep1, :series => @grays_anatomy, :viewed_at => 2.days.ago)
+      @jo_v5   = Factory(:viewing, :user => @jo,   :episode => @ga_ep2, :series => @grays_anatomy, :viewed_at => 1.days.ago)
+    end
 
-      it 'should return the most recent viewing for the given arguments' do
-        Viewing.last_viewed(user_id: @user2.id).first.should == @viewing6
-        Viewing.last_viewed(episode_id: @episode3.id).first.should == @viewing3
-        Viewing.last_viewed(series_id: @series1.id).first.should == @viewing3
-        Viewing.last_viewed(series_id: @series3.id).first.should be_nil
-        Viewing.last_viewed(user_id: @user1.id, series_id: @series2.id).first.should == @viewing5
+    describe 'last' do
+      it 'should return the most recently viewed viewing for the given arguments' do
+        Viewing.last(user_id: @jo.id).first.should == @jo_v5
+        Viewing.last(episode_id: @bl_ep3.id).first.should == @mark_v3
+        Viewing.last(series_id: @boston_legal.id).first.should == @mark_v3
+        Viewing.last(series_id: @dawsons_creek.id).first.should be_nil
+        Viewing.last(user_id: @mark.id, series_id: @house.id).first.should == @mark_v4
+      end
+    end
+
+    describe 'next' do
+      it 'should return the next viewing to watch for the given arguments' do
+        Viewing.next(user_id: @mark.id, series_id: @house.id).first.should == @mark_v7
+        Viewing.next(user_id: @mark.id, series_id: @boston_legal.id).first.should == @mark_v2
+        Viewing.next(user_id: @jo.id, series_id: @house.id).first.should be_nil
+        Viewing.next(user_id: @jo.id, series_id: @grays_anatomy.id).first.should be_nil
       end
     end
   end

@@ -5,7 +5,7 @@ class Viewing < ActiveRecord::Base
   belongs_to :series
   belongs_to :user
 
-  scope :last_viewed, lambda { |filter_ids|
+  scope :last, lambda { |filter_ids|
     where_string = 'viewed_at IS NOT NULL'
     filter_ids.each_with_index do |filter_id, index|
       where_string << " and #{filter_id[0]} = #{filter_id[1]}"
