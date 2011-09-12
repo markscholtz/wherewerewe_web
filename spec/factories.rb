@@ -22,6 +22,7 @@ FactoryGirl.define do
     name 'Two bros, just chillin'
     overview 'Two bros go to the beach ... to chill'
     last_updated 1.day.ago
+    sequence(:number)
 
     series
     season
