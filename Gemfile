@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.0.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -29,15 +29,14 @@ gem 'ruby-debug19', :require => 'ruby-debug'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'launchy'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'guard-livereload'
   gem 'guard-spork'
-  gem 'spork', '~> 0.9.0.rc'
+  gem 'launchy'
   gem 'pry'
   gem 'pry-doc'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rspec-rails'
+  gem 'spork', '~> 0.9.0.rc'
 end
