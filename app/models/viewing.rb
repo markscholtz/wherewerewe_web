@@ -14,4 +14,11 @@ class Viewing < ActiveRecord::Base
     where(where_string).
     order('viewed_at DESC')
   }
+
+  scope :next, lambda { |user_id, series_id|
+    joins(:episode).
+    where(:viewed_at => nil, :user_id => user_id, :series_id => series_id).
+    order('episodes.number').
+    limit(1)
+  }
 end

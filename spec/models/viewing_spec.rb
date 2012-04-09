@@ -57,27 +57,31 @@ describe Viewing do
       @house         = Factory(:series)
       @grays_anatomy = Factory(:series)
       @dawsons_creek = Factory(:series)
-      @bl_ep1  = Factory(:episode, :number => 1, :series => @boston_legal)
-      @bl_ep2  = Factory(:episode, :number => 2, :series => @boston_legal)
-      @bl_ep3  = Factory(:episode, :number => 3, :series => @boston_legal)
+      @bl_s1   = Factory(:season, :number => 1, :series => @boston_legal)
+      @bl_s2   = Factory(:season, :number => 2, :series => @boston_legal)
+      @bl_ep1  = Factory(:episode, :number => 1, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep2  = Factory(:episode, :number => 2, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep3  = Factory(:episode, :number => 3, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep4  = Factory(:episode, :number => 1, :series => @boston_legal, :season => @bl_s2)
       @h_ep1   = Factory(:episode, :number => 1, :series => @house)
       @h_ep2   = Factory(:episode, :number => 2, :series => @house)
       @h_ep3   = Factory(:episode, :number => 3, :series => @house)
       @h_ep4   = Factory(:episode, :number => 4, :series => @house)
       @ga_ep1  = Factory(:episode, :number => 1, :series => @grays_anatomy)
       @ga_ep2  = Factory(:episode, :number => 2, :series => @grays_anatomy)
-      @mark_v1 = Factory(:viewing, :user => @mark, :episode => @bl_ep1, :series => @boston_legal, :viewed_at => 3.days.ago)
-      @mark_v2 = Factory(:viewing, :user => @mark, :episode => @bl_ep2, :series => @boston_legal)
-      @mark_v3 = Factory(:viewing, :user => @mark, :episode => @bl_ep3, :series => @boston_legal, :viewed_at => 2.days.ago)
-      @mark_v4 = Factory(:viewing, :user => @mark, :episode => @h_ep1,  :series => @house,        :viewed_at => 6.days.ago)
-      @mark_v5 = Factory(:viewing, :user => @mark, :episode => @h_ep2,  :series => @house,        :viewed_at => 8.days.ago)
-      @mark_v6 = Factory(:viewing, :user => @mark, :episode => @h_ep4,  :series => @house)
-      @mark_v7 = Factory(:viewing, :user => @mark, :episode => @h_ep3,  :series => @house)
-      @jo_v1   = Factory(:viewing, :user => @jo,   :episode => @bl_ep3, :series => @boston_legal, :viewed_at => 5.days.ago)
-      @jo_v2   = Factory(:viewing, :user => @jo,   :episode => @bl_ep2, :series => @boston_legal)
-      @jo_v3   = Factory(:viewing, :user => @jo,   :episode => @bl_ep1, :series => @boston_legal)
-      @jo_v4   = Factory(:viewing, :user => @jo,   :episode => @ga_ep1, :series => @grays_anatomy, :viewed_at => 2.days.ago)
-      @jo_v5   = Factory(:viewing, :user => @jo,   :episode => @ga_ep2, :series => @grays_anatomy, :viewed_at => 1.days.ago)
+      @mark_v1 = Factory(:viewing, :user => @mark, :episode => @bl_ep1, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 3.days.ago)
+      @mark_v2 = Factory(:viewing, :user => @mark, :episode => @bl_ep2, :season => @bl_s1,                :series => @boston_legal)
+      @mark_v3 = Factory(:viewing, :user => @mark, :episode => @bl_ep3, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 2.days.ago)
+      @mark_v8 = Factory(:viewing, :user => @mark, :episode => @bl_ep4, :season => @bl_s2,                :series => @boston_legal)
+      @mark_v4 = Factory(:viewing, :user => @mark, :episode => @h_ep1,  :season => @house.season,         :series => @house,         :viewed_at => 6.days.ago)
+      @mark_v5 = Factory(:viewing, :user => @mark, :episode => @h_ep2,  :season => @house.season,         :series => @house,         :viewed_at => 8.days.ago)
+      @mark_v6 = Factory(:viewing, :user => @mark, :episode => @h_ep4,  :season => @house.season,         :series => @house)
+      @mark_v7 = Factory(:viewing, :user => @mark, :episode => @h_ep3,  :season => @house.season,         :series => @house)
+      @jo_v1   = Factory(:viewing, :user => @jo,   :episode => @bl_ep3, :season => @boston_legal.season,  :series => @boston_legal,  :viewed_at => 5.days.ago)
+      @jo_v2   = Factory(:viewing, :user => @jo,   :episode => @bl_ep2, :season => @boston_legal.season,  :series => @boston_legal)
+      @jo_v3   = Factory(:viewing, :user => @jo,   :episode => @bl_ep1, :season => @boston_legal.season,  :series => @boston_legal)
+      @jo_v4   = Factory(:viewing, :user => @jo,   :episode => @ga_ep1, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 2.days.ago)
+      @jo_v5   = Factory(:viewing, :user => @jo,   :episode => @ga_ep2, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 1.days.ago)
     end
 
     describe 'last' do
@@ -91,11 +95,11 @@ describe Viewing do
     end
 
     describe 'next' do
-      it 'should return the next viewing to watch for the given arguments' do
-        Viewing.next(user_id: @mark.id, series_id: @house.id).first.should == @mark_v7
-        Viewing.next(user_id: @mark.id, series_id: @boston_legal.id).first.should == @mark_v2
-        Viewing.next(user_id: @jo.id, series_id: @house.id).first.should be_nil
-        Viewing.next(user_id: @jo.id, series_id: @grays_anatomy.id).first.should be_nil
+      it 'should return the next viewing to watch for the given user and series' do
+        Viewing.next(@mark.id, @house.id).first.should == @mark_v7
+        Viewing.next(@mark.id, @boston_legal.id).first.should == @mark_v2
+        Viewing.next(@jo.id, @house.id).first.should be_nil
+        Viewing.next(@jo.id, @grays_anatomy.id).first.should be_nil
       end
     end
   end
