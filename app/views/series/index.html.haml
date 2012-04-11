@@ -1,6 +1,8 @@
+%header
+  %h2 series
 - @user.series.each_with_index do |s, i|
-  %div
-    %h1= s.name
+  %section
+    %h3= s.name
     %p= s.overview
     -#TODO: The ruby code inside of the conditional if is being executed regardless of
     -# whether the conditional is evaluating to true or false
