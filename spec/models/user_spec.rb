@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before :each do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe 'validations' do
@@ -17,7 +17,7 @@ describe User do
     end
 
     it 'should have a unique email' do
-      another_user = Factory.build(:user, :email => @user.email)
+      another_user = FactoryGirl.build(:user, :email => @user.email)
       another_user.should_not be_valid
       another_user.errors_on(:email).should_not be_blank
     end
@@ -25,13 +25,13 @@ describe User do
 
   describe 'associations' do
     before :each do
-      @series1 = Factory(:series)
-      @series2 = Factory(:series)
-      @episode1 = Factory(:episode)
-      @episode2 = Factory(:episode)
-      @viewing1 = Factory(:viewing, :user => @user, :episode => @episode1, :series => @series1)
-      @viewing2 = Factory(:viewing, :user => @user, :episode => @episode1, :series => @series2)
-      @viewing3 = Factory(:viewing, :user => @user, :episode => @episode2, :series => @series2)
+      @series1 = FactoryGirl.create(:series)
+      @series2 = FactoryGirl.create(:series)
+      @episode1 = FactoryGirl.create(:episode)
+      @episode2 = FactoryGirl.create(:episode)
+      @viewing1 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode1, :series => @series1)
+      @viewing2 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode1, :series => @series2)
+      @viewing3 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode2, :series => @series2)
     end
 
     it 'should return distinct episodes being watched by the user' do

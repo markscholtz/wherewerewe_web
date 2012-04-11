@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Viewing do
   describe 'validations' do
     before :each do
-      @viewing = Factory(:viewing)
+      @viewing = FactoryGirl.create(:viewing)
     end
 
     it 'should have a valid factory' do
@@ -31,9 +31,9 @@ describe Viewing do
 
   describe 'associations' do
     before :each do
-      @episode = Factory(:episode)
-      @user = Factory(:user)
-      @viewing = Factory(:viewing, :episode => @episode, :user => @user)
+      @episode = FactoryGirl.create(:episode)
+      @user = FactoryGirl.create(:user)
+      @viewing = FactoryGirl.create(:viewing, :episode => @episode, :user => @user)
     end
 
     it "should be destroyed along with it's episode" do
@@ -51,37 +51,37 @@ describe Viewing do
 
   describe 'scopes' do
     before :each do
-      @mark = Factory(:user)
-      @jo   = Factory(:user)
-      @boston_legal  = Factory(:series)
-      @house         = Factory(:series)
-      @grays_anatomy = Factory(:series)
-      @dawsons_creek = Factory(:series)
-      @bl_s1   = Factory(:season, :number => 1, :series => @boston_legal)
-      @bl_s2   = Factory(:season, :number => 2, :series => @boston_legal)
-      @bl_ep1  = Factory(:episode, :number => 1, :series => @boston_legal, :season => @bl_s1)
-      @bl_ep2  = Factory(:episode, :number => 2, :series => @boston_legal, :season => @bl_s1)
-      @bl_ep3  = Factory(:episode, :number => 3, :series => @boston_legal, :season => @bl_s1)
-      @bl_ep4  = Factory(:episode, :number => 1, :series => @boston_legal, :season => @bl_s2)
-      @h_ep1   = Factory(:episode, :number => 1, :series => @house)
-      @h_ep2   = Factory(:episode, :number => 2, :series => @house)
-      @h_ep3   = Factory(:episode, :number => 3, :series => @house)
-      @h_ep4   = Factory(:episode, :number => 4, :series => @house)
-      @ga_ep1  = Factory(:episode, :number => 1, :series => @grays_anatomy)
-      @ga_ep2  = Factory(:episode, :number => 2, :series => @grays_anatomy)
-      @mark_v1 = Factory(:viewing, :user => @mark, :episode => @bl_ep1, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 3.days.ago)
-      @mark_v2 = Factory(:viewing, :user => @mark, :episode => @bl_ep2, :season => @bl_s1,                :series => @boston_legal)
-      @mark_v3 = Factory(:viewing, :user => @mark, :episode => @bl_ep3, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 2.days.ago)
-      @mark_v8 = Factory(:viewing, :user => @mark, :episode => @bl_ep4, :season => @bl_s2,                :series => @boston_legal)
-      @mark_v4 = Factory(:viewing, :user => @mark, :episode => @h_ep1,  :season => @house.season,         :series => @house,         :viewed_at => 6.days.ago)
-      @mark_v5 = Factory(:viewing, :user => @mark, :episode => @h_ep2,  :season => @house.season,         :series => @house,         :viewed_at => 8.days.ago)
-      @mark_v6 = Factory(:viewing, :user => @mark, :episode => @h_ep4,  :season => @house.season,         :series => @house)
-      @mark_v7 = Factory(:viewing, :user => @mark, :episode => @h_ep3,  :season => @house.season,         :series => @house)
-      @jo_v1   = Factory(:viewing, :user => @jo,   :episode => @bl_ep3, :season => @boston_legal.season,  :series => @boston_legal,  :viewed_at => 5.days.ago)
-      @jo_v2   = Factory(:viewing, :user => @jo,   :episode => @bl_ep2, :season => @boston_legal.season,  :series => @boston_legal)
-      @jo_v3   = Factory(:viewing, :user => @jo,   :episode => @bl_ep1, :season => @boston_legal.season,  :series => @boston_legal)
-      @jo_v4   = Factory(:viewing, :user => @jo,   :episode => @ga_ep1, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 2.days.ago)
-      @jo_v5   = Factory(:viewing, :user => @jo,   :episode => @ga_ep2, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 1.days.ago)
+      @mark = FactoryGirl.create(:user)
+      @jo   = FactoryGirl.create(:user)
+      @boston_legal  = FactoryGirl.create(:series)
+      @house         = FactoryGirl.create(:series)
+      @grays_anatomy = FactoryGirl.create(:series)
+      @dawsons_creek = FactoryGirl.create(:series)
+      @bl_s1   = FactoryGirl.create(:season, :number => 1, :series => @boston_legal)
+      @bl_s2   = FactoryGirl.create(:season, :number => 2, :series => @boston_legal)
+      @bl_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep2  = FactoryGirl.create(:episode, :number => 2, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep3  = FactoryGirl.create(:episode, :number => 3, :series => @boston_legal, :season => @bl_s1)
+      @bl_ep4  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal, :season => @bl_s2)
+      @h_ep1   = FactoryGirl.create(:episode, :number => 1, :series => @house)
+      @h_ep2   = FactoryGirl.create(:episode, :number => 2, :series => @house)
+      @h_ep3   = FactoryGirl.create(:episode, :number => 3, :series => @house)
+      @h_ep4   = FactoryGirl.create(:episode, :number => 4, :series => @house)
+      @ga_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @grays_anatomy)
+      @ga_ep2  = FactoryGirl.create(:episode, :number => 2, :series => @grays_anatomy)
+      @mark_v1 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep1, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 3.days.ago)
+      @mark_v2 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep2, :season => @bl_s1,                :series => @boston_legal)
+      @mark_v3 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep3, :season => @bl_s1,                :series => @boston_legal,  :viewed_at => 2.days.ago)
+      @mark_v8 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep4, :season => @bl_s2,                :series => @boston_legal)
+      @mark_v4 = FactoryGirl.create(:viewing, :user => @mark, :episode => @h_ep1,  :season => @house.season,         :series => @house,         :viewed_at => 6.days.ago)
+      @mark_v5 = FactoryGirl.create(:viewing, :user => @mark, :episode => @h_ep2,  :season => @house.season,         :series => @house,         :viewed_at => 8.days.ago)
+      @mark_v6 = FactoryGirl.create(:viewing, :user => @mark, :episode => @h_ep4,  :season => @house.season,         :series => @house)
+      @mark_v7 = FactoryGirl.create(:viewing, :user => @mark, :episode => @h_ep3,  :season => @house.season,         :series => @house)
+      @jo_v1   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @bl_ep3, :season => @boston_legal.season,  :series => @boston_legal,  :viewed_at => 5.days.ago)
+      @jo_v2   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @bl_ep2, :season => @boston_legal.season,  :series => @boston_legal)
+      @jo_v3   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @bl_ep1, :season => @boston_legal.season,  :series => @boston_legal)
+      @jo_v4   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @ga_ep1, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 2.days.ago)
+      @jo_v5   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @ga_ep2, :season => @grays_anatomy.season, :series => @grays_anatomy, :viewed_at => 1.days.ago)
     end
 
     describe 'last' do

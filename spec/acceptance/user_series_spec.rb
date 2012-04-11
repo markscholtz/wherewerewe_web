@@ -7,16 +7,16 @@ feature 'User Series', %q{
 } do
 
   background do
-    @user = Factory(:user)
-    @series1 = Factory(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
-    @series2 = Factory(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers')
-    @episode1 = Factory(:episode, :series => @series1, :name => "Episode 1")
-    @episode2 = Factory(:episode, :series => @series1, :name => "Episode 2")
-    @episode3 = Factory(:episode, :series => @series2, :name => "Episode 3")
-    @viewing1 = Factory(:viewing, :user => @user, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
-    @viewing2 = Factory(:viewing, :user => @user, :episode => @episode2, :series => @series1, :viewed_at => 1.days.ago)
-    @viewing3 = Factory(:viewing, :user => @user, :episode => @episode3, :series => @series1, :viewed_at => 2.days.ago)
-    @viewing4 = Factory(:viewing, :user => @user, :episode => @episode3, :series => @series2)
+    @user = FactoryGirl.create(:user)
+    @series1 = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
+    @series2 = FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers')
+    @episode1 = FactoryGirl.create(:episode, :series => @series1, :name => "Episode 1")
+    @episode2 = FactoryGirl.create(:episode, :series => @series1, :name => "Episode 2")
+    @episode3 = FactoryGirl.create(:episode, :series => @series2, :name => "Episode 3")
+    @viewing1 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
+    @viewing2 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode2, :series => @series1, :viewed_at => 1.days.ago)
+    @viewing3 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode3, :series => @series1, :viewed_at => 2.days.ago)
+    @viewing4 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode3, :series => @series2)
   end
 
   scenario 'Viewing the "currently watching" series' do

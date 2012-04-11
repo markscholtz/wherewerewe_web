@@ -4,11 +4,11 @@ describe Episode do
 
   describe 'validations' do
     before :each do
-      @episode = Factory(:episode)
+      @episode = FactoryGirl.create(:episode)
     end
 
     it 'should have a valid factory' do
-      Factory.build(:episode).should be_valid
+      FactoryGirl.build(:episode).should be_valid
     end
 
     describe 'tvdb_id' do
@@ -19,7 +19,7 @@ describe Episode do
       end
 
       it 'should have a unique tvdb_id' do
-        another_episode = Factory.build(:episode, :tvdb_id => @episode.tvdb_id)
+        another_episode = FactoryGirl.build(:episode, :tvdb_id => @episode.tvdb_id)
         another_episode.should_not be_valid
         another_episode.errors_on(:tvdb_id).should_not be_blank
       end
@@ -63,8 +63,8 @@ describe Episode do
       end
 
       it 'should have a unique number scoped by series and season' do
-        episode_1 = Factory.create(:episode, :series_id => 1, :season_id => 1, :number => 1)
-        episode_2 = Factory.build(:episode, :series_id => 1, :season_id => 1, :number => 1)
+        episode_1 = FactoryGirl.create(:episode, :series_id => 1, :season_id => 1, :number => 1)
+        episode_2 = FactoryGirl.build(:episode, :series_id => 1, :season_id => 1, :number => 1)
 
         episode_2.should_not be_valid
         episode_2.errors_on(:number).should_not be_blank
