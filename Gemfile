@@ -31,6 +31,7 @@ gem 'ruby-debug19', :require => 'ruby-debug'
 group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'fivemat'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
