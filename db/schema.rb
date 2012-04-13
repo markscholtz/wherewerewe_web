@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110813184456) do
+ActiveRecord::Schema.define(:version => 20120412134220) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "tvdb_id",      :null => false
@@ -21,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20110813184456) do
     t.integer  "season_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "number"
   end
 
   create_table "seasons", :force => true do |t|
@@ -53,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110813184456) do
     t.datetime "viewed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "season_id"
   end
 
 end

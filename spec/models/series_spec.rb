@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Series do
   describe 'validations' do
     before :each do
-      @series = Factory(:series)
+      @series = FactoryGirl.create(:series)
     end
 
     it 'should have a valid factory' do
@@ -17,7 +17,7 @@ describe Series do
     end
 
     it 'should have a unique tvdb_id' do
-      another_series = Factory.build(:series, :tvdb_id => @series.tvdb_id)
+      another_series = FactoryGirl.build(:series, :tvdb_id => @series.tvdb_id)
       another_series.should_not be_valid
       another_series.errors_on(:tvdb_id).should_not be_blank
     end
@@ -28,7 +28,7 @@ describe Series do
       @series.errors_on(:name).should_not be_blank
     end
 
-    it 'should require a overview' do
+    it 'should require an overview' do
       @series.overview = nil
       @series.should_not be_valid
       @series.errors_on(:overview).should_not be_blank
@@ -44,13 +44,13 @@ describe Series do
   describe 'scopes' do
     describe 'viewed_by_user' do
       before :each do
-        @user1 = Factory(:user)
-        @user2 = Factory(:user)
-        @series1 = Factory(:series)
-        @episode1 = Factory(:episode, :series => @series1)
-        @viewing1 = Factory(:viewing, :user => @user1, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
-        @viewing2 = Factory(:viewing, :user => @user1, :episode => @episode1, :series => @series1)
-        @viewing3 = Factory(:viewing, :user => @user2, :episode => @episode1, :series => @series1)
+        @user1 = FactoryGirl.create(:user)
+        @user2 = FactoryGirl.create(:user)
+        @series1 = FactoryGirl.create(:series)
+        @episode1 = FactoryGirl.create(:episode, :series => @series1)
+        @viewing1 = FactoryGirl.create(:viewing, :user => @user1, :episode => @episode1, :series => @series1, :viewed_at => 3.days.ago)
+        @viewing2 = FactoryGirl.create(:viewing, :user => @user1, :episode => @episode1, :series => @series1)
+        @viewing3 = FactoryGirl.create(:viewing, :user => @user2, :episode => @episode1, :series => @series1)
       end
 
       it 'should return true if the series has any episodes that have been viewed by the user' do
@@ -62,10 +62,10 @@ describe Series do
 
   describe 'viewed?' do
     before :each do
-      @user = Factory(:user)
-      @series = Factory(:series)
-      @episode = Factory(:episode, :series => @series)
-      @viewing = Factory(:viewing, :user => @user, :episode => @episode, :series => @series, :viewed_at => 3.days.ago)
+      @user = FactoryGirl.create(:user)
+      @series = FactoryGirl.create(:series)
+      @episode = FactoryGirl.create(:episode, :series => @series)
+      @viewing = FactoryGirl.create(:viewing, :user => @user, :episode => @episode, :series => @series, :viewed_at => 3.days.ago)
     end
 
     it 'should return true if the user has viewed any episodes' do

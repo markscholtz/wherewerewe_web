@@ -3,6 +3,13 @@ FactoryGirl.define do
     sequence(:email) {|n| "user#{n}@example.com" }
   end
 
+  factory :viewing do
+    episode
+    season
+    series
+    user
+  end
+
   factory :series do
     sequence(:tvdb_id)
     name 'Living the high life'
@@ -22,14 +29,9 @@ FactoryGirl.define do
     name 'Two bros, just chillin'
     overview 'Two bros go to the beach ... to chill'
     last_updated 1.day.ago
+    sequence(:number)
 
     series
     season
-  end
-
-  factory :viewing do
-    episode
-    series
-    user
   end
 end

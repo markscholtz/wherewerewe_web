@@ -3,9 +3,11 @@
 - @user.series.each_with_index do |s, i|
   %section
     %h3= s.name
+    %h4 Overview:
     %p= s.overview
-    -#TODO: The ruby code inside of the conditional if is being executed regardless of
-    -# whether the conditional is evaluating to true or false
     - if s.viewed? @user.id
-      %p= Viewing.last_viewed(user_id: @user.id, series_id: @user.series[i].id).first.episode.name
-
+      - last_viewing = Viewing.last(user_id: @user.id, series_id: @user.series[i].id).first
+      %section
+        %h4 Last Viewed Episode
+        %p= last_viewing.episode.name
+        %p= last_viewing.episode.overview
