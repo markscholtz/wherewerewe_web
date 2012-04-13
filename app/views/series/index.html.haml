@@ -1,12 +1,12 @@
 %header
-  %h2 series
+  %h2 your series
 - @user.series.each_with_index do |s, i|
   %section
     %h3= s.name
     %h4 Overview:
     %p= s.overview
     - if s.viewed? @user.id
-      - last_viewing = Viewing.last(user_id: @user.id, series_id: @user.series[i].id).first
+      - last_viewing = Viewing.last_viewed(user_id: @user.id, series_id: @user.series[i].id)
       %section
         %h4 Last Viewed Episode
         %p= last_viewing.episode.name

@@ -113,7 +113,7 @@ describe Viewing do
       context 'for a given user' do
 
         it 'should return the most recently viewed viewing of any series' do
-          Viewing.last(user_id: @jo.id).first.should == @jo_v5
+          Viewing.last_viewed(user_id: @jo.id).should == @jo_v5
         end
 
       end
@@ -121,7 +121,7 @@ describe Viewing do
       context 'for a given episode' do
 
         it 'should return the most recently viewed viewing of that episode across all users' do
-          Viewing.last(episode_id: @bl_ep3.id).first.should == @mark_v3
+          Viewing.last_viewed(episode_id: @bl_ep3.id).should == @mark_v3
         end
 
       end
@@ -129,11 +129,11 @@ describe Viewing do
       context 'for a given series' do
 
         it 'should return the most recently viewed viewing of any episode in that series across all users' do
-          Viewing.last(series_id: @boston_legal.id).first.should == @mark_v3
+          Viewing.last_viewed(series_id: @boston_legal.id).should == @mark_v3
         end
 
         it 'should return nil if no episode has been viewed' do
-          Viewing.last(series_id: @dawsons_creek.id).first.should be_nil
+          Viewing.last_viewed(series_id: @dawsons_creek.id).should be_nil
         end
 
       end
@@ -141,7 +141,7 @@ describe Viewing do
       context 'for a given user and series' do
 
         it 'should return the most recently viewed viewing of any episode for that series for the given user' do
-          Viewing.last(user_id: @mark.id, series_id: @house.id).first.should == @mark_v4
+          Viewing.last_viewed(user_id: @mark.id, series_id: @house.id).should == @mark_v4
         end
 
       end
@@ -153,7 +153,7 @@ describe Viewing do
       context 'when some episodes have been watched in sequence' do
 
         it 'should return the first unwatched episode for the given user and series' do
-          Viewing.next(@mark.id, @house.id).first.should == @mark_v7
+          Viewing.next(@mark.id, @house.id).should == @mark_v7
         end
 
       end
@@ -161,8 +161,7 @@ describe Viewing do
       context 'when some episodes have been watched out of sequence' do
 
         it 'should return the first unwatched episode for the given user and series' do
-          # binding.pry
-          Viewing.next(@mark.id, @boston_legal.id).first.should == @mark_v2
+          Viewing.next(@mark.id, @boston_legal.id).should == @mark_v2
         end
 
       end
@@ -170,7 +169,7 @@ describe Viewing do
       context 'when no viewings exist for the given series' do
 
         it 'should return nil for the given user and series' do
-          Viewing.next(@jo.id, @house.id).first.should be_nil
+          Viewing.next(@jo.id, @house.id).should be_nil
         end
 
       end
@@ -178,7 +177,7 @@ describe Viewing do
       context 'when all episodes have been watched' do
 
         it 'should return nil for for the given user and series' do
-          Viewing.next(@jo.id, @grays_anatomy.id).first.should be_nil
+          Viewing.next(@jo.id, @grays_anatomy.id).should be_nil
         end
 
       end

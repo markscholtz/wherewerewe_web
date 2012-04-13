@@ -22,8 +22,8 @@ feature 'User Series', %q{
   scenario 'Viewing the "currently watching" series' do
     first_series = @user.series.first
     second_series = @user.series.second
-    last_viewing = Viewing.last(user_id: @user.id, series_id: @user.series[0].id).first
-    #next_viewing = Viewing.next(user_id: @user.id, series_id: @user.series[0].id).first
+    last_viewing = Viewing.last_viewed(user_id: @user.id, series_id: @user.series[0].id)
+    # next_viewing = Viewing.next(user_id: @user.id, series_id: @user.series[0].id)
 
     visit series_index_path
 
