@@ -17,9 +17,10 @@ class Viewing < ActiveRecord::Base
   }
 
   scope :next, lambda { |user_id, series_id|
+    joins(:season).
     joins(:episode).
     where(:viewed_at => nil, :user_id => user_id, :series_id => series_id).
-    order('episodes.number').
+    order('seasons.number, episodes.number').
     limit(1)
   }
 end

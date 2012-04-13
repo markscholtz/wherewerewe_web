@@ -28,7 +28,7 @@ describe Series do
       @series.errors_on(:name).should_not be_blank
     end
 
-    it 'should require a overview' do
+    it 'should require an overview' do
       @series.overview = nil
       @series.should_not be_valid
       @series.errors_on(:overview).should_not be_blank

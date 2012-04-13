@@ -31,7 +31,7 @@ describe Episode do
       @episode.errors_on(:name).should_not be_blank
     end
 
-    it 'should require a overview' do
+    it 'should require an overview' do
       @episode.overview = nil
       @episode.should_not be_valid
       @episode.errors_on(:overview).should_not be_blank
