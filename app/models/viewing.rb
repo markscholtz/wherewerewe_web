@@ -1,7 +1,8 @@
 class Viewing < ActiveRecord::Base
-  validates_presence_of :episode_id, :series_id, :user_id
+  validates_presence_of :episode_id, :season_id, :series_id, :user_id
 
   belongs_to :episode
+  belongs_to :season
   belongs_to :series
   belongs_to :user
 
