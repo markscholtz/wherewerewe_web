@@ -11,3 +11,8 @@
         %h4 Last Viewed Episode
         %p= last_viewing.episode.name
         %p= last_viewing.episode.overview
+    - if next_viewing = Viewing.next(@user.id, @user.series[i].id)
+      %section
+        %h4 Next Episode
+        %p= next_viewing.episode.name
+        %p= next_viewing.episode.overview
