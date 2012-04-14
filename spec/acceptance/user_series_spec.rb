@@ -33,13 +33,16 @@ feature 'User Series', %q{
 
     visit series_index_path
 
+    # save_and_open_page
     page.should have_content fringe.name
     page.should have_content fringe.overview
     page.should have_content fringe_last.episode.name
     page.should have_content fringe_last.episode.overview
+    page.should have_content 'No upcoming episodes'
 
     page.should have_content boston_legal.name
     page.should have_content boston_legal.overview
+    page.should have_content 'No previously watched episodes'
     page.should have_content boston_legal_next.episode.name
     page.should have_content boston_legal_next.episode.overview
   end

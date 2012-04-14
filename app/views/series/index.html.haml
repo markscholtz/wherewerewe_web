@@ -5,14 +5,18 @@
     %h3= s.name
     %h4 Overview:
     %p= s.overview
+    %h4 Last Viewed Episode
     - if s.viewed? @user.id
       - last_viewing = @user.last_viewing(s.id)
       %section
-        %h4 Last Viewed Episode
         %p= last_viewing.episode.name
         %p= last_viewing.episode.overview
+    - else
+      %p No previously watched episodes
+    %h4 Next Episode
     - if next_viewing = @user.next_viewing(s.id)
       %section
-        %h4 Next Episode
         %p= next_viewing.episode.name
         %p= next_viewing.episode.overview
+    - else
+      %p No upcoming episodes
