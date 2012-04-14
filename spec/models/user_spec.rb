@@ -44,4 +44,22 @@ describe User do
       @user.series.should ==[@series1, @series2]
     end
   end
+
+  describe 'viewing access methods' do
+    before :each do
+      @series1 = FactoryGirl.create(:series)
+      @episode1 = FactoryGirl.create(:episode)
+      @episode2 = FactoryGirl.create(:episode)
+      @viewing1 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode1, :series => @series1, :viewed_at => 1.day.ago)
+      @viewing2 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode2, :series => @series1)
+    end
+
+    it 'should return the last viewing for a given series' do
+      @user.last_viewing(@series1.id).should == @viewing1
+    end
+
+    it 'should return the next viewing for a given series' do
+      @user.next_viewing(@series1.id).should == @viewing2
+    end
+  end
 end

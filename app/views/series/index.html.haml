@@ -6,12 +6,12 @@
     %h4 Overview:
     %p= s.overview
     - if s.viewed? @user.id
-      - last_viewing = Viewing.last_viewed(user_id: @user.id, series_id: @user.series[i].id)
+      - last_viewing = @user.last_viewing(s.id)
       %section
         %h4 Last Viewed Episode
         %p= last_viewing.episode.name
         %p= last_viewing.episode.overview
-    - if next_viewing = Viewing.next(@user.id, @user.series[i].id)
+    - if next_viewing = @user.next_viewing(s.id)
       %section
         %h4 Next Episode
         %p= next_viewing.episode.name
