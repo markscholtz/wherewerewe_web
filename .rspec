@@ -1,7 +1,4 @@
 --colour
-/*--format progress # This is the default I believe*/
 --format Fivemat
 --profile
-/*--backtrace*/
 --debug
---drb

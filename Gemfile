@@ -32,12 +32,8 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'fivemat'
-  gem 'guard-rspec'
-  gem 'guard-spork'
   gem 'launchy'
   gem 'pry'
   gem 'pry-doc'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'rspec-rails'
-  gem 'spork', '~> 0.9.0.rc'
 end
