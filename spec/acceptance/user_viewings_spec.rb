@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-feature 'User Series', %q{
-  In order to view the series that I am currently watching
+feature 'User Viewings', %q{
+  In order to view series that I intend to watch and series that I am currently watching
   As a user
-  I want to view my series page
+  I want to view my viewings page
 } do
 
   background do
@@ -23,7 +23,7 @@ feature 'User Series', %q{
     @viewing4 = FactoryGirl.create(:viewing, :user => @user, :episode => @bl_ep1, :series => @boston_legal)
   end
 
-  scenario 'Viewing the "currently watching" series' do
+  scenario 'Viewing my series list' do
     fringe = @user.series.first
     boston_legal = @user.series.second
     fringe_last = Viewing.last_viewed(user_id: @user.id, series_id: fringe.id)
@@ -31,7 +31,7 @@ feature 'User Series', %q{
     boston_legal_last = Viewing.last_viewed(user_id: @user.id, series_id: boston_legal.id)
     boston_legal_next = Viewing.next(@user.id, boston_legal.id)
 
-    visit series_index_path
+    visit viewings_path
 
     # save_and_open_page
     page.should have_content fringe.name
