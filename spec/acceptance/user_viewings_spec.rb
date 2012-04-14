@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'User Viewings', %q{
+feature 'User viewings feature', %q{
   In order to view series that I intend to watch and series that I am currently watching
   As a user
   I want to view my viewings page
@@ -24,24 +24,22 @@ feature 'User Viewings', %q{
   end
 
   scenario 'Viewing my series list' do
-    fringe = @user.series.first
-    boston_legal = @user.series.second
-    fringe_last = Viewing.last_viewed(user_id: @user.id, series_id: fringe.id)
-    fringe_next = Viewing.next(@user.id, fringe.id)
-    boston_legal_last = Viewing.last_viewed(user_id: @user.id, series_id: boston_legal.id)
-    boston_legal_next = Viewing.next(@user.id, boston_legal.id)
+    fringe_last = @user.last_viewing(@fringe.id)
+    fringe_next = @user.next_viewing(@fringe.id)
+    boston_legal_last = @user.last_viewing(@boston_legal.id)
+    boston_legal_next = @user.next_viewing(@boston_legal.id)
 
     visit viewings_path
 
     # save_and_open_page
-    page.should have_content fringe.name
-    page.should have_content fringe.overview
+    page.should have_content @fringe.name
+    page.should have_content @fringe.overview
     page.should have_content fringe_last.episode.name
     page.should have_content fringe_last.episode.overview
     page.should have_content 'No upcoming episodes'
 
-    page.should have_content boston_legal.name
-    page.should have_content boston_legal.overview
+    page.should have_content @boston_legal.name
+    page.should have_content @boston_legal.overview
     page.should have_content 'No previously watched episodes'
     page.should have_content boston_legal_next.episode.name
     page.should have_content boston_legal_next.episode.overview
