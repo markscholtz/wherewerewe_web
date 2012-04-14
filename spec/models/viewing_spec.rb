@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Viewing do
-
   describe 'validations' do
-
     before :each do
       @viewing = FactoryGirl.create(:viewing)
     end
@@ -35,11 +33,9 @@ describe Viewing do
       @viewing.should_not be_valid
       @viewing.errors_on(:user_id).should_not be_blank
     end
-
   end
 
   describe 'associations' do
-
     before :each do
       @episode = FactoryGirl.create(:episode)
       @user = FactoryGirl.create(:user)
@@ -57,11 +53,9 @@ describe Viewing do
       @user.destroy
       User.find_by_id(@user.id).should be_nil
     end
-
   end
 
-  describe 'scopes' do
-
+  describe 'methods to retrieve' do
     before :each do
       @mark = FactoryGirl.create(:user)
       @jo   = FactoryGirl.create(:user)
@@ -108,26 +102,20 @@ describe Viewing do
       @jo_v5   = FactoryGirl.create(:viewing, :user => @jo,   :episode => @ga_ep2, :season => @ga_s1, :series => @grays_anatomy, :viewed_at => 1.days.ago)
     end
 
-    describe 'to retrieve the last viewed viewing' do
-
+    describe 'the last viewed viewing' do
       context 'for a given user' do
-
         it 'should return the most recently viewed viewing of any series' do
           Viewing.last_viewed(user_id: @jo.id).should == @jo_v5
         end
-
       end
 
       context 'for a given episode' do
-
         it 'should return the most recently viewed viewing of that episode across all users' do
           Viewing.last_viewed(episode_id: @bl_ep3.id).should == @mark_v3
         end
-
       end
 
       context 'for a given series' do
-
         it 'should return the most recently viewed viewing of any episode in that series across all users' do
           Viewing.last_viewed(series_id: @boston_legal.id).should == @mark_v3
         end
@@ -135,55 +123,39 @@ describe Viewing do
         it 'should return nil if no episode has been viewed' do
           Viewing.last_viewed(series_id: @dawsons_creek.id).should be_nil
         end
-
       end
 
       context 'for a given user and series' do
-
         it 'should return the most recently viewed viewing of any episode for that series for the given user' do
           Viewing.last_viewed(user_id: @mark.id, series_id: @house.id).should == @mark_v4
         end
-
       end
-
     end
 
     describe 'to retrieve the next viewing to watch' do
-
       context 'when some episodes have been watched in sequence' do
-
         it 'should return the first unwatched episode for the given user and series' do
           Viewing.next(@mark.id, @house.id).should == @mark_v7
         end
-
       end
 
       context 'when some episodes have been watched out of sequence' do
-
         it 'should return the first unwatched episode for the given user and series' do
           Viewing.next(@mark.id, @boston_legal.id).should == @mark_v2
         end
-
       end
 
       context 'when no viewings exist for the given series' do
-
         it 'should return nil for the given user and series' do
           Viewing.next(@jo.id, @house.id).should be_nil
         end
-
       end
 
       context 'when all episodes have been watched' do
-
         it 'should return nil for for the given user and series' do
           Viewing.next(@jo.id, @grays_anatomy.id).should be_nil
         end
-
       end
-
     end
-
   end
-
 end
