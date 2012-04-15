@@ -76,8 +76,8 @@ td { vertical-align: top; }
 body{ font:16px/26px Helvetica, Helvetica Neue, Arial; }
 
 .wrapper{
-	width:90%;
-	margin:0 5%;
+  width:90%;
+  margin:0 5%;
 }
 
 /* ===================
@@ -91,7 +91,7 @@ body{ font:16px/26px Helvetica, Helvetica Neue, Arial; }
 #header-container,
 #footer-container,
 #main aside{
-	background:#f16529;
+  background:#f16529;
 }
 
 #title{ color:white; }
@@ -104,24 +104,24 @@ body{ font:16px/26px Helvetica, Helvetica Neue, Arial; }
    ============== */
 
 nav a{
-	display:block;
-	margin-bottom:10px;
-	padding:15px 0;
+  display:block;
+  margin-bottom:10px;
+  padding:15px 0;
 
-	background:#e44d26;
-	color:white;
+  background:#e44d26;
+  color:white;
 
-	text-align:center;
-	text-decoration:none;
-	font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
 }
 
 nav a:hover, nav a:visited{
-	color:white;
+  color:white;
 }
 
 nav a:hover{
-	text-decoration:underline;
+  text-decoration:underline;
 }
 
 /* ==============
@@ -129,21 +129,21 @@ nav a:hover{
    ============== */
 
 #main{
-	padding:30px 0;
+  padding:30px 0;
 }
 
 #main article h1{
-	font-size:2em;
+  font-size:2em;
 }
 
 #main aside{
-	color:white;
-	padding:0px 5% 10px;
+  color:white;
+  padding:0px 5% 10px;
 }
 
 #footer-container footer{
-	color:white;
-	padding:20px 0;
+  color:white;
+  padding:20px 0;
 }
 
 /* ===============
@@ -176,28 +176,28 @@ nav a:hover{
 /* ====================
     INTERMEDIATE: Menu
    ==================== */
-	
-	nav a{
-		float:left;
-		width:27%;
-		margin:0 1.7%;
-		padding:25px 2%;
-		margin-bottom:0;
-	}
-	
-	nav li:first-child a{ margin-left:0;  }
-	nav li:last-child  a{ margin-right:0; }
-	
+
+  nav a{
+    float:left;
+    width:27%;
+    margin:0 1.7%;
+    padding:25px 2%;
+    margin-bottom:0;
+  }
+
+  nav li:first-child a{ margin-left:0;  }
+  nav li:last-child  a{ margin-right:0; }
+
 /* ========================
     INTERMEDIATE: IE Fixes
    ======================== */
 
-	nav ul li{
-		display:inline;
-	}	
-	.oldie nav a{
-		margin:0 0.7%;		
-	}
+  nav ul li{
+    display:inline;
+  }
+  .oldie nav a{
+    margin:0 0.7%;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -206,39 +206,39 @@ nav a:hover{
     WIDE: CSS3 Effects
    ==================== */
 
-	#header-container,
-	#main aside{
-		-webkit-box-shadow:0 5px 10px #aaa;
-		   -moz-box-shadow:0 5px 10px #aaa;
-		        box-shadow:0 5px 10px #aaa;
-	}
+  #header-container,
+  #main aside{
+    -webkit-box-shadow:0 5px 10px #aaa;
+       -moz-box-shadow:0 5px 10px #aaa;
+            box-shadow:0 5px 10px #aaa;
+  }
 
 /* ============
     WIDE: Menu
    ============ */
-	
-	#title{
-		float:left;
-	}
 
-	nav{
-		float:right;
-		width:38%;
-	}
+  #title{
+    float:left;
+  }
+
+  nav{
+    float:right;
+    width:38%;
+  }
 
 /* ============
     WIDE: Main
    ============ */
 
-	#main article{
-		float:left;
-		width:57%;
-	}
-		
-	#main aside{
-		float:right;
-		width:28%;
-	}
+  #main article{
+    float:left;
+    width:57%;
+  }
+
+  #main aside{
+    float:right;
+    width:28%;
+  }
 }
 
 @media only screen and (min-width: 1140px) {
@@ -247,10 +247,10 @@ nav a:hover{
     Maximal Width
    =============== */
 
-	.wrapper{
-		width:1026px; /* 1140px - 10% for margins */
-		margin:0 auto;
-	}
+  .wrapper{
+    width:1026px; /* 1140px - 10% for margins */
+    margin:0 auto;
+  }
 }
 
 /* =============================================================================
@@ -270,7 +270,7 @@ nav a:hover{
 /* =============================================================================
    Print Styles
    ========================================================================== */
- 
+
 @media print {
   * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
   a, a:visited { text-decoration: underline; }
