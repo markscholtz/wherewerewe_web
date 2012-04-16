@@ -6,6 +6,27 @@ class Viewing < ActiveRecord::Base
   belongs_to :series
   belongs_to :user
 
+  def self.create_with_series_for_user(series_id, user_id)
+    series = Series.find(series_id)
+    user = User.find(user_id)
+    series.episodes.each do |e|
+      create_with_episode_for_user(e, user)
+    end
+  end
+
+  private
+
+  def self.create_with_episode_for_user(episode, user)
+    viewing = Viewing.new
+    viewing.user = user
+    viewing.series = episode.series
+    viewing.season = episode.season
+    viewing.episode = episode
+    viewing.save!
+  end
+
+  public
+
   def self.last_viewed(filter_ids)
     where_string = 'viewed_at IS NOT NULL'
     filter_ids.each_with_index do |filter_id, index|

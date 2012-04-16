@@ -7,12 +7,17 @@ feature 'User add viewing feature', %q{
 } do
 
   background do
-    @fringe       = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
+    @user = FactoryGirl.create(:user)
+    @fringe = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
   end
 
   scenario 'Adding a series' do
     visit series_index_path
-    click_link 'add to viewing list'
+    click_button 'add to viewing list'
     page.should have_css(".flash_notice", :text => "Fringe has been added to your viewing list")
+    page.should_not have_content 'add to viewing list'
+    page.should have_content 'add to viewing list'
+    save_and_open_page
+    current_path.should == series_index_path
   end
 end

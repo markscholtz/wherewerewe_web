@@ -55,6 +55,24 @@ describe Viewing do
     end
   end
 
+  describe 'creation for a user given a series' do
+    before :each do
+      @mark = FactoryGirl.create(:user)
+      @boston_legal  = FactoryGirl.create(:series, :name => "Boston Legal")
+      @bl_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal)
+      @bl_ep2  = FactoryGirl.create(:episode, :number => 2, :series => @boston_legal)
+    end
+
+    it 'should create a new viewing for each episode of the series' do
+      lambda {
+        Viewing.create_with_series_for_user(@boston_legal, @mark)
+      }.should change(Viewing, :count).by(2)
+      bl_viewings = Viewing.find_all_by_series_id(@boston_legal.id)
+      bl_viewings.first.episode.should == @bl_ep1
+      bl_viewings.second.episode.should == @bl_ep2
+    end
+  end
+
   describe 'methods to retrieve' do
     before :each do
       @mark = FactoryGirl.create(:user)
