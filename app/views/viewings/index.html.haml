@@ -17,5 +17,7 @@
       - if next_viewing = @user.next_viewing(s.id)
         %p= next_viewing.episode.name
         %p= next_viewing.episode.overview
+        = form_for next_viewing do |f|
+          = f.submit 'Watch'
       - else
         %p No upcoming episodes

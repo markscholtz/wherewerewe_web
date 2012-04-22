@@ -40,4 +40,28 @@ describe ViewingsController do
       }.should change(Viewing, :count).by(2)
     end
   end
+
+  describe "POST 'update'" do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @v1 = FactoryGirl.create(:viewing, :user => @user)
+    end
+
+    def do_post(params = {})
+      post :update, {
+        :id => @v1.id
+      }.merge(params)
+    end
+
+    it 'should be successful' do
+      do_post
+      response.should redirect_to viewings_path
+    end
+
+    it 'should mark the viewing as viewed' do
+      @user.last_viewing(@v1.series_id).should be_nil
+      do_post
+      @user.last_viewing(@v1.series_id).should_not be_nil
+    end
+  end
 end

@@ -10,4 +10,12 @@ class ViewingsController < ApplicationController
 
     redirect_to series_index_path, :notice => "#{series.name} has been added to your viewing list"
   end
+
+  def update
+    @user = User.first
+    viewing = Viewing.find(params[:id])
+    viewing.viewed_at = Time.now
+    viewing.save!
+    redirect_to viewings_path
+  end
 end
