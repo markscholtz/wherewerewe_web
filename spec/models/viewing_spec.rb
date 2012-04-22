@@ -176,4 +176,20 @@ describe Viewing do
       end
     end
   end
+
+  describe 'methods to check' do
+    before :each do
+      @mark = FactoryGirl.create(:user)
+      @boston_legal  = FactoryGirl.create(:series, :name => "Boston Legal")
+      @bl_s1   = FactoryGirl.create(:season, :number => 1, :series => @boston_legal)
+      @bl_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal, :season => @bl_s1)
+      @mark_v1 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep1, :season => @bl_s1, :series => @boston_legal,  :viewed_at => 3.days.ago)
+    end
+
+    context 'existance of viewings for a user and series' do
+      it 'should return true is viewings exist' do
+        Viewing.viewings_exit(user_id: @mark.id, series_id: @boston_legal.id).should be_true
+      end
+    end
+  end
 end

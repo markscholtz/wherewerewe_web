@@ -7,6 +7,7 @@ feature 'User search series feature', %q{
 } do
 
   background do
+    @user         = FactoryGirl.create(:user)
     @fringe       = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
     @boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers')
   end

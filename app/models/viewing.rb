@@ -47,4 +47,14 @@ class Viewing < ActiveRecord::Base
     limit(1).
     first
   end
+
+  def self.viewings_exit(filter_ids)
+    where_string = ''
+    filter_ids.each_with_index do |filter_id, index|
+      where_string << "#{filter_id[0]} = #{filter_id[1]} and "
+    end
+    where_string = where_string[0, where_string.length - 5]
+
+    where(where_string).any?
+  end
 end
