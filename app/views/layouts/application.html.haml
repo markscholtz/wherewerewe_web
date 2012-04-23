@@ -35,8 +35,12 @@
     #main-container
       #main.wrapper.clearfix
 
-        .flash_notice
-          = flash
+        - unless flash.empty?
+          .notifications
+            %ul
+              - flash.each do |key, message|
+                = content_tag :li, message, :id => key
+
         = yield
 
         -# %aside

@@ -16,7 +16,7 @@ feature 'User add viewing feature', %q{
   scenario 'Adding a series' do
     visit series_index_path
     click_button 'add to viewing list'
-    page.should have_css(".flash_notice", :text => "Fringe has been added to your viewing list")
+    page.should have_css(".notifications", :text => "Fringe has been added to your viewing list")
     # save_and_open_page
     page.should_not have_selector 'input'
     current_path.should == series_index_path
