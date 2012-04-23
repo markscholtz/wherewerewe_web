@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.12'
+gem 'rails', '3.1.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -21,7 +21,7 @@ gem 'ruby-debug19', :require => 'ruby-debug'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 gem 'haml-rails'
-gem 'mysql2', '~> 0.2.6'
+gem 'mysql2', '~> 0.3.11'
 gem 'sass'
 gem 'tvdb_party'
 
