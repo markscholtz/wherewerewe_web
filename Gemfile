@@ -25,6 +25,7 @@ gem 'mysql2', '~> 0.3.11'
 gem 'sass'
 gem 'tvdb_party'
 gem 'jquery-rails'
+gem 'modernizr'
 
 # Gems used only for assets and not required
 # in production environments by default
