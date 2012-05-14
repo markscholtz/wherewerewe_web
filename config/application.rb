@@ -52,5 +52,8 @@ module Wherewerewe
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Change the path that assets are served from
+    # config.assets.prefix = "/assets"
   end
 end
