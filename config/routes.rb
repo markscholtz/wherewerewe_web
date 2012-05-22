@@ -12,7 +12,7 @@ Wherewerewe::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :series, :only => [:index]
+  resources :series, :only => [:index, :show]
   resources :viewings, :only => [:index, :create, :update]
 
   # Sample resource route with options:

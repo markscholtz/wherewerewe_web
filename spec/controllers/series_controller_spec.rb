@@ -9,18 +9,26 @@ describe SeriesController do
     end
 
     it 'should be successful' do
-      get 'index'
+      get :index
       response.should be_success
     end
 
     it 'should populate a list of series for the view' do
-      get 'index'
+      get :index
       assigns[:series].should  == [@boston_legal, @fringe]
     end
 
     it 'should populate user for the view' do
-      get 'index'
+      get :index
       assigns[:user].should  == @user
+    end
+  end
+
+  describe 'GET "show"' do
+    it 'should be successful' do
+      boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal')
+      get :show, :id => boston_legal.id
+      response.should be_success
     end
   end
 end

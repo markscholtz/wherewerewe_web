@@ -1,0 +1,10 @@
+%section.series
+  %header
+    %h2= @series.name
+  - @series.seasons.each do |s|
+    %section.season
+      %header
+        %h3= "Season #{s.number}"
+      - s.episodes.each do |e|
+        %section.episode
+          %p= "#{e.number}: #{e.name}"

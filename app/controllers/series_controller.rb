@@ -3,4 +3,8 @@ class SeriesController < ApplicationController
     @user = User.first
     @series = Series.order("name")
   end
+
+  def show
+    @series = Series.find params[:id]
+  end
 end

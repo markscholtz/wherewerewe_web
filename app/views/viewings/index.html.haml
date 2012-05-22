@@ -2,7 +2,7 @@
   %h2 your series
 - @user.series.each_with_index do |s, i|
   %section.viewing
-    %h3= s.name
+    = link_to s.name, s
     %p= s.overview
     %section.last_viewing
       %h4 Last Viewed Episode
