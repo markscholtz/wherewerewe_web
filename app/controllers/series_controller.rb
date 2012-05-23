@@ -5,6 +5,7 @@ class SeriesController < ApplicationController
   end
 
   def show
+    @current_user = User.first
     @series = Series.find params[:id]
   end
 end

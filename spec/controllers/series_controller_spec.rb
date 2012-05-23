@@ -25,10 +25,24 @@ describe SeriesController do
   end
 
   describe 'GET "show"' do
+    before :each do
+      @user         = FactoryGirl.create(:user)
+      @boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal')
+    end
+
     it 'should be successful' do
-      boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal')
-      get :show, :id => boston_legal.id
+      get :show, :id => @boston_legal.id
       response.should be_success
+    end
+
+    it 'should set the series for the view' do
+      get :show, :id => @boston_legal.id
+      assigns[:series].should  == @boston_legal
+    end
+
+    it 'should populate the current user for the view' do
+      get :show, :id => @boston_legal.id
+      assigns[:current_user].should  == @user
     end
   end
 end
