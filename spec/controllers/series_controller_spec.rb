@@ -20,7 +20,7 @@ describe SeriesController do
 
     it 'should populate user for the view' do
       get :index
-      assigns[:user].should  == @user
+      assigns[:current_user].should  == @user
     end
   end
 

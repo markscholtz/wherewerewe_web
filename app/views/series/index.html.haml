@@ -4,7 +4,7 @@
   %section
     %h3= s.name
     %p= s.overview
-    - if !Viewing.viewings_exit(user_id: @user.id, series_id: s.id)
+    - if !Viewing.viewings_exit(user_id: @current_user.id, series_id: s.id)
       = form_tag(viewings_path) do
         = hidden_field_tag 'series_id', s.id
         = submit_tag 'add to viewing list'
