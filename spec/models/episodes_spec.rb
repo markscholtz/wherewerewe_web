@@ -73,7 +73,24 @@ describe Episode do
         episode_2.should be_valid
       end
     end
-
   end
 
+  context 'checking a watched status of an episode' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @episode1 = FactoryGirl.create(:episode)
+      @episode2 = FactoryGirl.create(:episode)
+      @episode3 = FactoryGirl.create(:episode)
+      @viewing1 = FactoryGirl.create(:viewing, :user => @user, :episode_id => @episode1.id, :viewed_at => 1.day.ago)
+      @viewing2 = FactoryGirl.create(:viewing, :user => @user, :episode_id => @episode2.id)
+    end
+
+    describe 'given a user' do
+      it 'should return whether the episode has been watched or not' do
+        @episode1.watched?(@user).should be_true
+        @episode2.watched?(@user).should be_false
+        @episode3.watched?(@user).should be_false
+      end
+    end
+  end
 end
