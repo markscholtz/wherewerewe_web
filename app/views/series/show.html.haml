@@ -8,5 +8,5 @@
       %ol
         - s.episodes.order("number").each do |e|
           %li
-            %section#episode
+            %section#episode{ :class => (e.watched?(@current_user) ? "watched" : "") }
               %h4= e.name

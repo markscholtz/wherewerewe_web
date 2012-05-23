@@ -32,6 +32,11 @@ feature 'View series details feature', %q{
                                    :season => @bl_s1,
                                    :series => @boston_legal,
                                    :viewed_at => 3.days.ago)
+    @viewing2 = FactoryGirl.create(:viewing,
+                                   :user => @user,
+                                   :episode => @bl_ep2,
+                                   :season => @bl_s1,
+                                   :series => @boston_legal)
   end
 
   scenario 'Navigating to the series details page' do
@@ -47,9 +52,11 @@ feature 'View series details feature', %q{
       page.should have_content "Season #{@bl_s1.number}"
       within(:xpath, ".//ol//li[1]") do
         page.should have_content @bl_ep1.name
+        page.should have_css 'section.watched'
       end
       within(:xpath, ".//ol//li[2]") do
         page.should have_content @bl_ep2.name
+        page.should_not have_css 'section.watched'
       end
     end
     within(:xpath, '//section[@id="season"][2]') do
