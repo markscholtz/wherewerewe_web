@@ -57,4 +57,13 @@ class Viewing < ActiveRecord::Base
 
     where(where_string).any?
   end
+
+  def to_s
+    <<-EOS
+----> User: #{user.email}
+      Series: #{series.name}
+      Season: #{season.number}
+      Episode: #{episode.number} - #{episode.name}
+      EOS
+  end
 end

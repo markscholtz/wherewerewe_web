@@ -1,6 +1,11 @@
 class SeriesController < ApplicationController
   def index
-    @user = User.first
+    @current_user = User.first
     @series = Series.order("name")
+  end
+
+  def show
+    @current_user = User.first
+    @series = Series.find params[:id]
   end
 end

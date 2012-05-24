@@ -1,0 +1,12 @@
+%section#series
+  %header
+    %h2= @series.name
+  - @series.seasons.order("number").each do |s|
+    %section#season
+      %header
+        %h3= "Season #{s.number}"
+      %ol
+        - s.episodes.order("number").each do |e|
+          %li
+            %section#episode{ :class => (e.watched?(@current_user) ? "watched" : "") }
+              %h4= e.name

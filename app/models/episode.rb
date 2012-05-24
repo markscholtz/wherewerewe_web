@@ -7,4 +7,9 @@ class Episode < ActiveRecord::Base
   belongs_to :season
   has_many :viewings, :dependent => :destroy
   has_many :users, :through => :viewings
+
+  def watched?(user)
+    v = viewings.where(:user_id => user.id).first
+    v && !v.viewed_at.nil?
+  end
 end
