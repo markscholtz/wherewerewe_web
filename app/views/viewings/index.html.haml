@@ -1,10 +1,10 @@
 %header
   %h2 your series
 - @user.series.each_with_index do |s, i|
-  %section.viewing
+  %section#viewing
     = link_to s.name, s
     %p= s.overview
-    %section.last_viewing
+    %section#last_viewing
       %h4 Last Viewed Episode
       - if s.viewed? @user.id
       - last_viewing = @user.last_viewing(s.id)
@@ -12,7 +12,7 @@
         %p= last_viewing.episode.overview
       - else
         %p No previously watched episodes
-    %section.next_viewing
+    %section#next_viewing
       %h4 Next Episode
       - if next_viewing = @user.next_viewing(s.id)
         %p= next_viewing.episode.name
