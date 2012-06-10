@@ -40,6 +40,7 @@ end
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'capybara'
+  gem 'debugger-pry', :require => 'debugger/pry'
   gem 'factory_girl_rails'
   gem 'fivemat'
   gem 'launchy'
