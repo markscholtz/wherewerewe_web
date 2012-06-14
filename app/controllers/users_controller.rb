@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to viewings_path, :notice => "Account successfully created for #{@user.email}"
     else
-      redirect_to register_path, :alert => 'Invalid email or password'
+      redirect_to sign_up_path, :alert => 'Invalid email or password'
     end
   end
 end
