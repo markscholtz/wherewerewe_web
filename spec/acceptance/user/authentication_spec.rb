@@ -29,7 +29,7 @@ feature 'User authentication feature', %q{
     page.should have_content 'Invalid email or password'
   end
 
-  scenario 'Loggin in' do
+  scenario 'Log in' do
     FactoryGirl.create(:user, :email => 'mark@example.com', :password => 'crypt1c')
 
     visit log_in_path
@@ -39,7 +39,14 @@ feature 'User authentication feature', %q{
     fill_in 'password', :with => 'crypt1c'
     click_button 'log in'
 
-    # current_path.should == viewings_path
-    # page.should have_content 'log out'
+    current_path.should == viewings_path
+    page.should have_content 'log out'
+  end
+
+  scenario 'Log in attempt with incorrect details' do
+    visit log_in_path
+    click_button 'log in'
+    current_path.should == log_in_path
+    page.should have_content 'Invalid email or password'
   end
 end
