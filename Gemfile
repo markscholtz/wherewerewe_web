@@ -40,7 +40,7 @@ end
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'capybara'
-  gem 'debugger-pry', :require => 'debugger/pry'
+  gem 'debugger-pry', :require => 'debugger/pry' # can get rid of this as pry-nav has most of the functionality I require
   gem 'factory_girl_rails'
   gem 'fivemat'
   gem 'launchy'
@@ -48,4 +48,9 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rspec-rails'
+
+  # remote needs to come before nav in order for nav to work on remote
+  # debugging sessions
+  gem 'pry-remote'
+  gem 'pry-nav'
 end

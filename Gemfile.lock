@@ -113,8 +113,13 @@ GEM
     pry-doc (0.4.2)
       pry (>= 0.9.0)
       yard (~> 0.8.1)
+    pry-nav (0.2.1)
+      pry (~> 0.9.9)
     pry-rails (0.1.6)
       pry
+    pry-remote (0.1.5)
+      pry (~> 0.9.9)
+      slop (~> 2.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -211,7 +216,9 @@ DEPENDENCIES
   mysql2 (~> 0.3.11)
   pry
   pry-doc
+  pry-nav
   pry-rails
+  pry-remote
   rails (= 3.2.0)
   rspec-rails
   ruby-debug19
