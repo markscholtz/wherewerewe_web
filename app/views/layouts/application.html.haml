@@ -31,7 +31,9 @@
               = link_to 'watch', viewings_path
             %li
               = link_to 'search', series_index_path
-            %li log out
+            - if current_user
+              %li
+                = link_to 'log out', log_out_path
 
     #main-container
       #main.wrapper.clearfix
