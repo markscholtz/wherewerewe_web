@@ -6,8 +6,8 @@ feature 'User authentication feature', %q{
   I want to have my account authenticated
 } do
 
-  context 'new user' do
-    scenario 'signing up as a new user' do
+  context 'new user signing up' do
+    scenario 'with valid details' do
       visit root_path
       click_link 'sign up'
       current_path.should == sign_up_path
@@ -21,7 +21,7 @@ feature 'User authentication feature', %q{
       page.should have_content 'Account successfully created for mark@example.com'
     end
 
-    scenario 'signing up with incorrect details' do
+    scenario 'with invalid details' do
       visit root_path
       click_link 'sign up'
 
@@ -29,31 +29,33 @@ feature 'User authentication feature', %q{
       current_path.should == sign_up_path
       page.should have_content 'Invalid email or password'
     end
-
-    scenario 'log in attempt with incorrect details' do
-      visit log_in_path
-      click_button 'log in'
-      current_path.should == log_in_path
-      page.should have_content 'Invalid email or password'
-    end
   end
 
   context 'existing user' do
     let!(:user) { FactoryGirl.create(:user, :email => 'mark@example.com', :password => 'crypt1c') }
 
-    scenario 'log in' do
-      visit log_in_path
-      page.should have_content 'log in'
+    context 'logging in' do
+      scenario 'with valid details' do
+        visit log_in_path
+        page.should have_content 'log in'
 
-      fill_in 'email', :with => 'mark@example.com'
-      fill_in 'password', :with => 'crypt1c'
-      click_button 'log in'
+        fill_in 'email', :with => 'mark@example.com'
+        fill_in 'password', :with => 'crypt1c'
+        click_button 'log in'
 
-      current_path.should == viewings_path
-      page.should have_content 'log out'
+        current_path.should == viewings_path
+        page.should have_content 'log out'
+      end
+
+      scenario 'with no details' do
+        visit log_in_path
+        click_button 'log in'
+        current_path.should == log_in_path
+        page.should have_content 'Invalid email or password'
+      end
     end
 
-    scenario 'log out' do
+    scenario 'logging out' do
       visit log_in_path
       fill_in 'email', :with => 'mark@example.com'
       fill_in 'password', :with => 'crypt1c'
