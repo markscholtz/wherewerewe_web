@@ -14,7 +14,10 @@ describe SessionsController do
                       :password => 'crypt1c'}.reverse_merge(params)
     end
 
-    let!(:user) { FactoryGirl.create(:user, :email => 'mark@example.com') }
+    let!(:user) { FactoryGirl.create(:user,
+                                     :email => 'mark@example.com',
+                                     :password => 'crypt1c',
+                                     :password_confirmation => 'crypt1c') }
 
     it 'should be successful' do
       do_post

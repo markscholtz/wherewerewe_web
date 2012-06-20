@@ -62,4 +62,26 @@ describe User do
       @user.next_viewing(@series1.id).should == @viewing2
     end
   end
+
+  describe 'authentication' do
+    let!(:user) { FactoryGirl.create(:user,
+                                     :email => 'mark@example.com',
+                                     :password => 'crypt1c',
+                                     :password_confirmation => 'crypt1c') }
+
+    it 'should encrypt password before save' do
+      jo = FactoryGirl.build(:user, :email => 'jo@example.com', :password => 'password')
+      jo.save
+      jo.password_salt.should_not be_nil
+      jo.password_hash.should_not be_nil
+    end
+
+    it 'should authenticate with correct details' do
+      User.authenticate('mark@example.com', 'crypt1c').should == user
+    end
+
+    it 'should fail with incorrect details' do
+      User.authenticate('mark@example.com', 'wrong password').should be_nil
+    end
+  end
 end
