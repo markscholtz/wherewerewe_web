@@ -7,17 +7,12 @@ describe User do
 
   describe 'validations' do
     it 'should have a valid factory' do
-      @user.should be_valid
-    end
-
-    it 'should require an email' do
-      @user.email = nil
-      @user.should_not be_valid
-      @user.errors_on(:email).should_not be_blank
+      FactoryGirl.build(:user).should be_valid
     end
 
     it 'should have a unique email' do
-      another_user = FactoryGirl.build(:user, :email => @user.email)
+      user = FactoryGirl.create(:user)
+      another_user = FactoryGirl.build(:user, :email => user.email)
       another_user.should_not be_valid
       another_user.errors_on(:email).should_not be_blank
     end
@@ -84,4 +79,5 @@ describe User do
       User.authenticate('mark@example.com', 'wrong password').should be_nil
     end
   end
+
 end

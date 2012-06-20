@@ -1,37 +1,11 @@
 require 'spec_helper'
 
 describe Viewing do
+
   describe 'validations' do
-    before :each do
-      @viewing = FactoryGirl.create(:viewing)
-    end
-
     it 'should have a valid factory' do
-      @viewing.should be_valid
-    end
-
-    it 'should require an episode_id' do
-      @viewing.episode_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:episode_id).should_not be_blank
-    end
-
-    it 'should require a series_id' do
-      @viewing.series_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:series_id).should_not be_blank
-    end
-
-    it 'should require a season_id' do
-      @viewing.season_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:season_id).should_not be_blank
-    end
-
-    it 'should require a user_id' do
-      @viewing.user_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:user_id).should_not be_blank
+      viewing = FactoryGirl.create(:viewing)
+      viewing.should be_valid
     end
   end
 
@@ -192,4 +166,5 @@ describe Viewing do
       end
     end
   end
+
 end
