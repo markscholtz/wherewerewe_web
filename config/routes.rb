@@ -10,7 +10,7 @@ Wherewerewe::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
   get 'log_in' => 'sessions#new', :as => :log_in
-  delete 'log_out' => 'sessions#destroy', :as => :log_out
+  get 'log_out' => 'sessions#destroy', :as => :log_out
   get 'sign_up' => 'users#new', :as => :sign_up
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
