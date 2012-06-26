@@ -16,16 +16,13 @@ gem 'rails', '3.2.0'
 gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+gem "bcrypt-ruby", :require => "bcrypt"
 gem 'haml-rails'
+gem 'jquery-rails'
+gem 'modernizr'
 gem 'mysql2', '~> 0.3.11'
 gem 'sass'
 gem 'tvdb_party'
-gem 'jquery-rails'
-gem 'modernizr'
 
 # Gems used only for assets and not required
 # in production environments by default
@@ -40,6 +37,7 @@ end
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'capybara'
+  gem 'debugger-pry', :require => 'debugger/pry' # can get rid of this as pry-nav has most of the functionality I require
   gem 'factory_girl_rails'
   gem 'fivemat'
   gem 'launchy'
@@ -47,4 +45,9 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rspec-rails'
+
+  # remote needs to come before nav in order for nav to work on remote
+  # debugging sessions
+  gem 'pry-remote'
+  gem 'pry-nav'
 end

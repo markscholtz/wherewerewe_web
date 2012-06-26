@@ -1,75 +1,45 @@
 require 'spec_helper'
 
 describe Viewing do
+
   describe 'validations' do
-    before :each do
-      @viewing = FactoryGirl.create(:viewing)
-    end
-
     it 'should have a valid factory' do
-      @viewing.should be_valid
-    end
-
-    it 'should require an episode_id' do
-      @viewing.episode_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:episode_id).should_not be_blank
-    end
-
-    it 'should require a series_id' do
-      @viewing.series_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:series_id).should_not be_blank
-    end
-
-    it 'should require a season_id' do
-      @viewing.season_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:season_id).should_not be_blank
-    end
-
-    it 'should require a user_id' do
-      @viewing.user_id = nil
-      @viewing.should_not be_valid
-      @viewing.errors_on(:user_id).should_not be_blank
+      viewing = FactoryGirl.create(:viewing)
+      viewing.should be_valid
     end
   end
 
   describe 'associations' do
-    before :each do
-      @episode = FactoryGirl.create(:episode)
-      @user = FactoryGirl.create(:user)
-      @viewing = FactoryGirl.create(:viewing, :episode => @episode, :user => @user)
-    end
+    let (:episode) { FactoryGirl.create(:episode) }
+    let (:user)    { FactoryGirl.create(:user) }
+    let (:viewing) { FactoryGirl.create(:viewing, :episode => episode, :user => user) }
 
     it "should be destroyed along with it's episode" do
-      @episode.viewings.should include(@viewing)
-      @episode.destroy
-      Viewing.find_by_id(@viewing.id).should be_nil
+      episode.viewings.should include(viewing)
+      episode.destroy
+      Viewing.find_by_id(viewing.id).should be_nil
     end
 
     it "should be destroyed along with it's user" do
-      @user.viewings.should include(@viewing)
-      @user.destroy
-      User.find_by_id(@user.id).should be_nil
+      user.viewings.should include(viewing)
+      user.destroy
+      User.find_by_id(user.id).should be_nil
     end
   end
 
   describe 'creation for a user given a series' do
-    before :each do
-      @mark = FactoryGirl.create(:user)
-      @boston_legal  = FactoryGirl.create(:series, :name => "Boston Legal")
-      @bl_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal)
-      @bl_ep2  = FactoryGirl.create(:episode, :number => 2, :series => @boston_legal)
-    end
+    let! (:mark)         { FactoryGirl.create(:user) }
+    let! (:boston_legal) { FactoryGirl.create(:series, :name => "Boston Legal") }
+    let! (:bl_ep1)       { FactoryGirl.create(:episode, :number => 1, :series => boston_legal) }
+    let! (:bl_ep2)       { FactoryGirl.create(:episode, :number => 2, :series => boston_legal) }
 
     it 'should create a new viewing for each episode of the series' do
       lambda {
-        Viewing.create_with_series_for_user(@boston_legal, @mark)
+        Viewing.create_with_series_for_user(boston_legal, mark)
       }.should change(Viewing, :count).by(2)
-      bl_viewings = Viewing.find_all_by_series_id(@boston_legal.id)
-      bl_viewings.first.episode.should == @bl_ep1
-      bl_viewings.second.episode.should == @bl_ep2
+      bl_viewings = Viewing.find_all_by_series_id(boston_legal.id)
+      bl_viewings.first.episode.should == bl_ep1
+      bl_viewings.second.episode.should == bl_ep2
     end
   end
 
@@ -178,18 +148,17 @@ describe Viewing do
   end
 
   describe 'methods to check' do
-    before :each do
-      @mark = FactoryGirl.create(:user)
-      @boston_legal  = FactoryGirl.create(:series, :name => "Boston Legal")
-      @bl_s1   = FactoryGirl.create(:season, :number => 1, :series => @boston_legal)
-      @bl_ep1  = FactoryGirl.create(:episode, :number => 1, :series => @boston_legal, :season => @bl_s1)
-      @mark_v1 = FactoryGirl.create(:viewing, :user => @mark, :episode => @bl_ep1, :season => @bl_s1, :series => @boston_legal,  :viewed_at => 3.days.ago)
-    end
+    let! (:mark)          { FactoryGirl.create(:user) }
+    let! (:boston_legal ) { FactoryGirl.create(:series, :name => "Boston Legal") }
+    let! (:bl_s1)         { FactoryGirl.create(:season, :number => 1, :series => boston_legal) }
+    let! (:bl_ep1)        { FactoryGirl.create(:episode, :number => 1, :series => boston_legal, :season => bl_s1) }
+    let! (:mark_v1)       { FactoryGirl.create(:viewing, :user => mark, :episode => bl_ep1, :season => bl_s1, :series => boston_legal,  :viewed_at => 3.days.ago) }
 
     context 'existance of viewings for a user and series' do
       it 'should return true is viewings exist' do
-        Viewing.viewings_exit(user_id: @mark.id, series_id: @boston_legal.id).should be_true
+        Viewing.viewings_exit(user_id: mark.id, series_id: boston_legal.id).should be_true
       end
     end
   end
+
 end

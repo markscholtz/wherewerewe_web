@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412134220) do
+ActiveRecord::Schema.define(:version => 20120618162634) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "tvdb_id",      :null => false
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(:version => 20120412134220) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",      :null => false
+    t.string   "email",         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_salt"
+    t.string   "password_hash"
   end
 
   create_table "viewings", :force => true do |t|

@@ -1,0 +1,8 @@
+= form_for @user do |f|
+  = f.label :email, 'email'
+  = f.text_field :email
+  = f.label :password, 'password'
+  = f.password_field :password
+  = f.label :password_confirmation, 'confirm password'
+  = f.password_field :password_confirmation
+  = f.submit 'sign up'
