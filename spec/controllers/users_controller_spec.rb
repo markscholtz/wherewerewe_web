@@ -17,7 +17,7 @@ describe UsersController do
     def do_post(params = {})
       post :create, { :user => { :email => 'mark@example.com',
                                  :password => 'crypt1c',
-                                 :password_confirmation => 'crypt1c' }}.reverse_merge(params)
+                                 :password_confirmation => 'crypt1c' }}.merge(params)
     end
 
     it 'should be successful' do
@@ -25,9 +25,14 @@ describe UsersController do
       response.should redirect_to viewings_path
     end
 
-    it 'should populate a user for the view' do
+    it 'should log in the user after successful sign up' do
       do_post
-      assigns[:user].should_not be_nil
+      current_user.should == User.find_by_email('mark@example.com')
+    end
+
+    it 'should redirect to sign up path after failed sign up' do
+      do_post({ :user => { :email => '' } })
+      response.should redirect_to sign_up_path
     end
   end
 end

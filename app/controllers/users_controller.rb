@@ -4,10 +4,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    user = User.new(params[:user])
 
-    if @user.save
-      redirect_to viewings_path, :notice => "Account successfully created for #{@user.email}"
+    if user.save
+      session[:user_id] = user.id
+      redirect_to viewings_path, :notice => "Account successfully created for #{user.email}"
     else
       redirect_to sign_up_path, :alert => 'Invalid email or password'
     end
