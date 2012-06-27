@@ -13,6 +13,7 @@ feature 'User watch viewing feature', %q{
   end
 
   scenario 'watching the last unwatched episode' do
+    log_in @user
     visit viewings_path
 
     within('#last_viewing') do

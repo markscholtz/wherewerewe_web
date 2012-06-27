@@ -29,6 +29,7 @@ feature 'User viewings feature', %q{
     boston_legal_last = @user.last_viewing(@boston_legal.id)
     boston_legal_next = @user.next_viewing(@boston_legal.id)
 
+    log_in @user
     visit viewings_path
 
     # save_and_open_page

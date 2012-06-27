@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe ViewingsController do
   describe 'GET "index"' do
+    let (:user) { FactoryGirl.create(:user) }
+
     before :each do
-      @user = FactoryGirl.create(:user)
+      log_in(user)
     end
 
     it 'should be successful' do
@@ -13,7 +15,7 @@ describe ViewingsController do
 
     it 'should populate a user for the view' do
       get 'index'
-      assigns[:user].should  == @user
+      assigns[:series].should_not be_nil
     end
   end
 

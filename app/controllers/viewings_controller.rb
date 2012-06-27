@@ -1,6 +1,6 @@
 class ViewingsController < ApplicationController
   def index
-    @user = User.first
+    @series = current_user.series if current_user
   end
 
   def create
