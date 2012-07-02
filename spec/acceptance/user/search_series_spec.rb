@@ -6,18 +6,17 @@ feature 'User search series feature', %q{
   I want to search for series that can be added to my viewing list
 } do
 
-  background do
-    @user         = FactoryGirl.create(:user)
-    @fringe       = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
-    @boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers')
-  end
+  let! (:user)         { FactoryGirl.create(:user) }
+  let! (:fringe)       { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
+  let! (:boston_legal) { FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers') }
 
   scenario 'Viewing all available series' do
+    log_in user
     visit series_index_path
 
-    page.should have_content @fringe.name
-    page.should have_content @fringe.overview
-    page.should have_content @boston_legal.name
-    page.should have_content @boston_legal.overview
+    page.should have_content fringe.name
+    page.should have_content fringe.overview
+    page.should have_content boston_legal.name
+    page.should have_content boston_legal.overview
   end
 end

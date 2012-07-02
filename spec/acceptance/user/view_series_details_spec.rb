@@ -47,6 +47,7 @@ feature 'View series details feature', %q{
   end
 
   scenario 'Inspecting the series details page' do
+    log_in @user
     visit series_path(@boston_legal)
     page.should have_content @boston_legal.name
     within(:xpath, '//section[@id="season"][1]') do

@@ -6,14 +6,12 @@ feature 'User watch viewing feature', %q{
   I want to watch series on my viewing list
 } do
 
-  background do
-    @user = FactoryGirl.create(:user)
-    @episode = FactoryGirl.create(:episode, :name => 'Cool episode')
-    @v1 = FactoryGirl.create(:viewing, :user => @user, :episode => @episode)
-  end
+  let! (:user)    { FactoryGirl.create(:user) }
+  let! (:episode) { FactoryGirl.create(:episode, :name => 'Cool episode') }
+  let! (:v1)      { FactoryGirl.create(:viewing, :user => user, :episode => episode) }
 
   scenario 'watching the last unwatched episode' do
-    log_in @user
+    log_in user
     visit viewings_path
 
     within('#last_viewing') do

@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SeriesController do
   describe 'GET "index"' do
-    before :each do
-      @user         = FactoryGirl.create(:user)
-      @fringe       = FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff')
-      @boston_legal = FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers')
-    end
+    let (:user)         { FactoryGirl.create(:user) }
+    let (:fringe)       { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
+    let (:boston_legal) { FactoryGirl.create(:series, :name => 'Boston Legal', :overview => 'Some funny lawyers') }
 
     it 'should be successful' do
       get :index
@@ -15,7 +13,7 @@ describe SeriesController do
 
     it 'should populate a list of series for the view' do
       get :index
-      assigns[:series].should  == [@boston_legal, @fringe]
+      assigns[:series].should  == [boston_legal, fringe]
     end
 
     it 'should populate user for the view' do
@@ -38,11 +36,6 @@ describe SeriesController do
     it 'should set the series for the view' do
       get :show, :id => @boston_legal.id
       assigns[:series].should  == @boston_legal
-    end
-
-    it 'should populate the current user for the view' do
-      get :show, :id => @boston_legal.id
-      assigns[:current_user].should  == @user
     end
   end
 end
