@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20120618162634) do
     t.datetime "last_updated", :null => false
     t.integer  "series_id",    :null => false
     t.integer  "season_id",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "number"
   end
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20120618162634) do
     t.integer  "tvdb_id",    :null => false
     t.integer  "number",     :null => false
     t.integer  "series_id",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "series", :force => true do |t|
@@ -38,14 +38,14 @@ ActiveRecord::Schema.define(:version => 20120618162634) do
     t.string   "name",         :null => false
     t.string   "overview",     :null => false
     t.datetime "last_updated", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "email",         :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "password_salt"
     t.string   "password_hash"
   end
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20120618162634) do
     t.integer  "series_id",  :null => false
     t.integer  "user_id",    :null => false
     t.datetime "viewed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "season_id"
   end
 
