@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) {|n| "user#{n}@example.com" }
+    sequence(:email) { |n| "user#{n}@example.com" }
     password 'password'
     password_confirmation 'password'
   end
@@ -14,8 +14,8 @@ FactoryGirl.define do
 
   factory :series do
     sequence(:tvdb_id)
-    name 'Living the high life'
-    overview 'A series about two Capetonians...'
+    sequence(:name)  { |n| "Series #{n}" }
+    sequence(:overview) { |n| "Series #{n} overview ..." }
     last_updated 1.day.ago
   end
 
@@ -28,8 +28,8 @@ FactoryGirl.define do
 
   factory :episode do
     sequence(:tvdb_id)
-    name 'Two bros, just chillin'
-    overview 'Two bros go to the beach ... to chill'
+    sequence(:name)  { |n| "Episode #{n}" }
+    sequence(:overview) { |n| "Episode #{n} overview ..." }
     last_updated 1.day.ago
     sequence(:number)
 

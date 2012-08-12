@@ -1,6 +1,6 @@
 class ViewingsController < ApplicationController
   def index
-    @series = current_user.series if current_user
+    @progressions = current_user.progressions if current_user
   end
 
   def create

@@ -4,5 +4,5 @@ class Season < ActiveRecord::Base
   validates_uniqueness_of :number, :scope => :series_id
 
   belongs_to :series
-  has_many :episodes
+  has_many :episodes, :dependent => :destroy
 end

@@ -73,4 +73,12 @@ describe User do
     end
   end
 
+  describe 'progressions' do
+    let! (:viewing1)  { FactoryGirl.create(:viewing, user: user) }
+    let! (:viewing2)  { FactoryGirl.create(:viewing, user: user) }
+
+    it 'should display series progress for each series' do
+      user.progressions.count.should == 2
+    end
+  end
 end

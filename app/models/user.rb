@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def progressions
+    Progression.create_progressions self, series
+  end
+
   def last_viewing(series_id)
     Viewing.last_viewed user_id: id, series_id: series_id
   end
