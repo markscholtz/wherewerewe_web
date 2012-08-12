@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature 'User viewings feature', %q{
-  In order to view series that I intend to watch and series that I am currently watching
   As a user
+  In order to view series that I intend to watch and series that I am currently watching
   I want to view my viewings page
 } do
 
@@ -44,5 +44,8 @@ feature 'User viewings feature', %q{
     page.should have_content 'No previously watched episodes'
     page.should have_content boston_legal_next.episode.name
     page.should have_content boston_legal_next.episode.overview
+
+    click_button 'Watch'
+    page.should_not have_content 'No previously watched episodes'
   end
 end
