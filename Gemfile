@@ -16,11 +16,12 @@ gem 'rails', '3.2.6'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
-gem "bcrypt-ruby", :require => "bcrypt"
+gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'modernizr'
 gem 'mysql2', '~> 0.3.11'
+gem 'rack-mini-profiler'
 gem 'sass'
 gem 'tvdb_party'
 
