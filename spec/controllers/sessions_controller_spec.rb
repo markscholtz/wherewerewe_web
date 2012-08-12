@@ -21,7 +21,7 @@ describe SessionsController do
 
     it 'should be successful' do
       do_post
-      response.should redirect_to viewings_path
+      response.should redirect_to progressions_path
     end
 
     it 'should set the user_id for the session' do

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-feature 'User viewings feature', %q{
+feature 'User progressions feature', %q{
   As a user
   In order to view series that I intend to watch and series that I am currently watching
-  I want to view my viewings page
+  I want to view my progressions page
 } do
 
   background do
@@ -30,7 +30,7 @@ feature 'User viewings feature', %q{
     boston_legal_next = @user.next_viewing(@boston_legal.id)
 
     log_in @user
-    visit viewings_path
+    visit progressions_path
 
     # save_and_open_page
     page.should have_content @fringe.name

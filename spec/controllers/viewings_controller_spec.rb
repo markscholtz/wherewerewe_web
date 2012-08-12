@@ -7,21 +7,6 @@ describe ViewingsController do
     log_in(user)
   end
 
-  describe 'GET "index"' do
-    it 'should be successful' do
-      get 'index'
-      response.should be_success
-    end
-
-    it 'should find all progressions for the current user' do
-      FactoryGirl.create(:series)
-
-      get 'index'
-      assigns[:progressions].should_not be_nil
-      assigns[:progressions].each { |p| p.user.should == user }
-    end
-  end
-
   describe "POST 'create'" do
     let  (:fringe) { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
     let! (:f_ep1)  { FactoryGirl.create(:episode, :series => fringe, :name => "Fringe - Episode 1") }
@@ -52,7 +37,7 @@ describe ViewingsController do
 
     it 'should be successful' do
       do_post
-      response.should redirect_to viewings_path
+      response.should redirect_to progressions_path
     end
 
     it 'should mark the viewing as viewed' do

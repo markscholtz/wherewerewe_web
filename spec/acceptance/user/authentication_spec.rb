@@ -17,7 +17,7 @@ feature 'User authentication feature', %q{
       fill_in 'confirm password', :with => 'crypt1c'
       click_button 'sign up'
 
-      current_path.should == viewings_path
+      current_path.should == progressions_path
       page.should have_content 'Account successfully created for mark@example.com'
     end
 
@@ -46,7 +46,7 @@ feature 'User authentication feature', %q{
         fill_in 'password', :with => 'crypt1c'
         click_button 'log in'
 
-        current_path.should == viewings_path
+        current_path.should == progressions_path
         page.should have_content 'log out'
       end
 

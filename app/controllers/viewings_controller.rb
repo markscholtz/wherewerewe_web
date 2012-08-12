@@ -1,8 +1,4 @@
 class ViewingsController < ApplicationController
-  def index
-    @progressions = current_user.progressions if current_user
-  end
-
   def create
     series = Series.find(params[:series_id])
     Viewing.create_with_series_for_user(series.id, current_user.id)
@@ -14,6 +10,6 @@ class ViewingsController < ApplicationController
     viewing = Viewing.find(params[:id])
     viewing.viewed_at = Time.now
     viewing.save!
-    redirect_to viewings_path
+    redirect_to progressions_path
   end
 end

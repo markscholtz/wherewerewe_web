@@ -12,7 +12,7 @@ feature 'User watch viewing feature', %q{
 
   scenario 'watching the last unwatched episode' do
     log_in user
-    visit viewings_path
+    visit progressions_path
 
     within('#last_viewing') do
       page.should have_content 'No previously watched episodes'
@@ -32,6 +32,6 @@ feature 'User watch viewing feature', %q{
       page.should have_content 'No upcoming episodes'
     end
 
-    current_path.should == viewings_path
+    current_path.should == progressions_path
   end
 end

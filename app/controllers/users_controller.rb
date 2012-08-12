@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if user.save
       session[:user_id] = user.id
-      redirect_to viewings_path, :notice => "Account successfully created for #{user.email}"
+      redirect_to progressions_path, :notice => "Account successfully created for #{user.email}"
     else
       redirect_to sign_up_path, :alert => 'Invalid email or password'
     end

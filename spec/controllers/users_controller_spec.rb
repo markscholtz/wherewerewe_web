@@ -22,7 +22,7 @@ describe UsersController do
 
     it 'should be successful' do
       do_post
-      response.should redirect_to viewings_path
+      response.should redirect_to progressions_path
     end
 
     it 'should log in the user after successful sign up' do
