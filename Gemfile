@@ -17,6 +17,7 @@ gem 'rails', '3.2.6'
 
 # Bundle the extra gems:
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'cancan'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'modernizr'
@@ -37,6 +38,7 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
+  gem 'awesome_print'
   gem 'capybara'
   gem 'debugger-pry', :require => 'debugger/pry' # can get rid of this as pry-nav has most of the functionality I require
   gem 'factory_girl_rails'
