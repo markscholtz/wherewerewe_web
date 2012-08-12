@@ -13,14 +13,17 @@ describe ViewingsController do
       response.should be_success
     end
 
-    it 'should populate a user for the view' do
+    it 'should find all progressions for the current user' do
+      FactoryGirl.create(:series)
+
       get 'index'
-      assigns[:series].should_not be_nil
+      assigns[:progressions].should_not be_nil
+      assigns[:progressions].each { |p| p.user.should == user }
     end
   end
 
   describe "POST 'create'" do
-    let (:fringe) { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
+    let  (:fringe) { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
     let! (:f_ep1)  { FactoryGirl.create(:episode, :series => fringe, :name => "Fringe - Episode 1") }
     let! (:f_ep2)  { FactoryGirl.create(:episode, :series => fringe, :name => "Fringe - Episode 2") }
 

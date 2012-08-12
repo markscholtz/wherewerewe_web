@@ -1,23 +1,22 @@
 %header
   %h2 your series
-- @series.each do |series|
+- @progressions.each do |progression|
   %section#viewing
-    = link_to series.name, series
-    %p= series.overview
+    = link_to progression.series_name, progression.series
+    %p= progression.series_overview
     %section#last_viewing
       %h4 Last Viewed Episode
-      - if series.viewed? current_user.id
-      - last_viewing = current_user.last_viewing(series.id)
-        %p= last_viewing.episode.name
-        %p= last_viewing.episode.overview
+      - if progression.last_viewing
+        %p= progression.last_viewing_episode_name
+        %p= progression.last_viewing_episode_overview
       - else
         %p No previously watched episodes
     %section#next_viewing
       %h4 Next Episode
-      - if next_viewing = current_user.next_viewing(series.id)
-        %p= next_viewing.episode.name
-        %p= next_viewing.episode.overview
-        = form_for next_viewing do |f|
+      - if progression.next_viewing
+        %p= progression.next_viewing_episode_name
+        %p= progression.next_viewing_episode_overview
+        = form_for progression.next_viewing do |f|
           = f.submit 'Watch'
       - else
         %p No upcoming episodes
