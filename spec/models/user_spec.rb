@@ -16,13 +16,13 @@ describe User do
   end
 
   describe 'associations' do
-    let! (:series1)  { FactoryGirl.create(:series) }
-    let! (:series2)  { FactoryGirl.create(:series) }
-    let! (:episode1) { FactoryGirl.create(:episode) }
-    let! (:episode2) { FactoryGirl.create(:episode) }
-    let! (:viewing1) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series1) }
-    let! (:viewing2) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series2) }
-    let! (:viewing3) { FactoryGirl.create(:viewing, :user => user, :episode => episode2, :series => series2) }
+    let!(:series1)  { FactoryGirl.create(:series) }
+    let!(:series2)  { FactoryGirl.create(:series) }
+    let!(:episode1) { FactoryGirl.create(:episode) }
+    let!(:episode2) { FactoryGirl.create(:episode) }
+    let!(:viewing1) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series1) }
+    let!(:viewing2) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series2) }
+    let!(:viewing3) { FactoryGirl.create(:viewing, :user => user, :episode => episode2, :series => series2) }
 
     it 'should return distinct episodes being watched by the user' do
       user.episodes.size.should == 2
@@ -36,11 +36,11 @@ describe User do
   end
 
   describe 'viewing access methods' do
-    let! (:series1)  { FactoryGirl.create(:series) }
-    let! (:episode1) { FactoryGirl.create(:episode) }
-    let! (:episode2) { FactoryGirl.create(:episode) }
-    let! (:viewing1) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series1, :viewed_at => 1.day.ago) }
-    let! (:viewing2) { FactoryGirl.create(:viewing, :user => user, :episode => episode2, :series => series1) }
+    let!(:series1)  { FactoryGirl.create(:series) }
+    let!(:episode1) { FactoryGirl.create(:episode) }
+    let!(:episode2) { FactoryGirl.create(:episode) }
+    let!(:viewing1) { FactoryGirl.create(:viewing, :user => user, :episode => episode1, :series => series1, :viewed_at => 1.day.ago) }
+    let!(:viewing2) { FactoryGirl.create(:viewing, :user => user, :episode => episode2, :series => series1) }
 
     it 'should return the last viewing for a given series' do
       user.last_viewing(series1.id).should == viewing1

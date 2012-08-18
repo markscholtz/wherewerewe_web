@@ -6,7 +6,7 @@ feature 'Authorization feature', %q{
   I want to restrict access based on user privileges
 } do
 
-  let! (:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
 
   context 'An unauthorized user' do
     scenario 'Accessing the watch page' do
