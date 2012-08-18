@@ -74,8 +74,9 @@ describe User do
   end
 
   describe 'progressions' do
-    let! (:viewing1)  { FactoryGirl.create(:viewing, user: user) }
-    let! (:viewing2)  { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing1)  { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing2)  { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing3)  { FactoryGirl.create(:viewing, user: FactoryGirl.create(:user)) }
 
     it 'should display series progress for each series' do
       user.progressions.count.should == 2
