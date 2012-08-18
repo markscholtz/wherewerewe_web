@@ -16,6 +16,15 @@ class Progression
     end
   end
 
+  # This will be called by CanCan on the index action when populating the @progressions ivar
+  def self.accessible_by(ability, action = :index)
+    create_progressions(ability.user, ability.user.series)
+  end
+
+  def user_id
+    user.id
+  end
+
   def series_name
     series.name
   end

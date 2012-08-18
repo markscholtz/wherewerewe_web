@@ -106,4 +106,17 @@ describe Progression do
       progressions.first.series_name.should == boston_legal.name
     end
   end
+
+  describe '#accessible_by' do
+    let(:user)      { FactoryGirl.create(:user) }
+    let!(:viewing1) { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing2) { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing3) { FactoryGirl.create(:viewing, user: FactoryGirl.create(:user)) }
+
+    it 'should return progressions for the current user' do
+      progressions = Progression.accessible_by(Ability.new(user))
+      progressions.count.should == 2
+      progressions.each { |p| p.user_id.should == user.id }
+    end
+  end
 end
