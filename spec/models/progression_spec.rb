@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Progression do
 
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:boston_legal) { FactoryGirl.create(:series,
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:boston_legal) { FactoryGirl.create(:series,
                                            name: 'Boston Legal',
                                            overview: 'A Boston law firm ...') }
-  # let! (:series) { FactoryGirl.create(:series_with_episodes) }
+  # let!(:series) { FactoryGirl.create(:series_with_episodes) }
 
   describe 'validations' do
-    let (:progression) { Progression.new }
+    let(:progression) { Progression.new }
 
     it 'should have a valid factory' do
       FactoryGirl.build(:progression).should be_valid
@@ -46,18 +46,18 @@ describe Progression do
     end
 
     describe 'viewings' do
-      let! (:season) { FactoryGirl.create(:season, series: boston_legal) }
-      let! (:episode1) { FactoryGirl.create(:episode,
-                                            name: 'Episode 1',
-                                            overview: 'Overview ...',
-                                            series: boston_legal,
-                                            season: season) }
-      let! (:viewing1) { FactoryGirl.create(:viewing,
-                                            user: user,
-                                            series: boston_legal,
-                                            season: season,
-                                            episode: episode1,
-                                            viewed_at: 1.day.ago) }
+      let!(:season)   { FactoryGirl.create(:season, series: boston_legal) }
+      let!(:episode1) { FactoryGirl.create(:episode,
+                                           name: 'Episode 1',
+                                           overview: 'Overview ...',
+                                           series: boston_legal,
+                                           season: season) }
+      let!(:viewing1) { FactoryGirl.create(:viewing,
+                                           user: user,
+                                           series: boston_legal,
+                                           season: season,
+                                           episode: episode1,
+                                           viewed_at: 1.day.ago) }
 
       describe 'last viewing attributes' do
         it "should derive the last viewing from the user's last viewing" do
@@ -74,12 +74,12 @@ describe Progression do
       end
 
       describe 'next viewing attributes' do
-        let! (:episode2) { FactoryGirl.create(:episode,
+        let!(:episode2) { FactoryGirl.create(:episode,
                                              name: 'Episode 2',
                                              overview: 'Yet another overview ...',
                                              series: boston_legal,
                                              season: season) }
-        let! (:viewing2) { FactoryGirl.create(:viewing,
+        let!(:viewing2) { FactoryGirl.create(:viewing,
                                              user: user,
                                              series: boston_legal,
                                              season: season,
@@ -104,6 +104,19 @@ describe Progression do
       progressions = Progression.create_progressions user, [boston_legal]
       progressions.count.should == 1
       progressions.first.series_name.should == boston_legal.name
+    end
+  end
+
+  describe '#accessible_by' do
+    let(:user)      { FactoryGirl.create(:user) }
+    let!(:viewing1) { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing2) { FactoryGirl.create(:viewing, user: user) }
+    let!(:viewing3) { FactoryGirl.create(:viewing, user: FactoryGirl.create(:user)) }
+
+    it 'should return progressions for the current user' do
+      progressions = Progression.accessible_by(Ability.new(user))
+      progressions.count.should == 2
+      progressions.each { |p| p.user_id.should == user.id }
     end
   end
 end

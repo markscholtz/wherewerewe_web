@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email], params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to viewings_path
+      redirect_to progressions_path
     else
       redirect_to log_in_path, :alert => "Invalid email or password"
     end

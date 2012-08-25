@@ -1,7 +1,7 @@
 %header
   %h2 your series
 - @progressions.each do |progression|
-  %section#viewing
+  %section#progression
     = link_to progression.series_name, progression.series
     %p= progression.series_overview
     %section#last_viewing

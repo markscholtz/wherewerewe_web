@@ -41,7 +41,7 @@ feature 'View series details feature', %q{
 
   scenario 'Navigating to the series details page' do
     log_in @user
-    visit viewings_path
+    visit progressions_path
     click_link 'Boston Legal'
     current_path.should == series_path(@boston_legal)
   end

@@ -1,64 +1,65 @@
 require 'spec_helper'
 
 describe ViewingsController do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   before :each do
     log_in(user)
   end
 
-  describe 'GET "index"' do
-    it 'should be successful' do
-      get 'index'
-      response.should be_success
-    end
-
-    it 'should find all progressions for the current user' do
-      FactoryGirl.create(:series)
-
-      get 'index'
-      assigns[:progressions].should_not be_nil
-      assigns[:progressions].each { |p| p.user.should == user }
-    end
-  end
-
   describe "POST 'create'" do
-    let  (:fringe) { FactoryGirl.create(:series, :name => 'Fringe', :overview => 'Supernatural stuff') }
-    let! (:f_ep1)  { FactoryGirl.create(:episode, :series => fringe, :name => "Fringe - Episode 1") }
-    let! (:f_ep2)  { FactoryGirl.create(:episode, :series => fringe, :name => "Fringe - Episode 2") }
+    let(:fringe) { FactoryGirl.create(:series, name: 'Fringe', overview: 'Supernatural stuff') }
+    let!(:f_ep1) { FactoryGirl.create(:episode, series: fringe, name: "Fringe - Episode 1") }
+    let!(:f_ep2) { FactoryGirl.create(:episode, series: fringe, name: "Fringe - Episode 2") }
 
     def do_post(params = {})
-      post :create, params
+      post :create,  { series_id: fringe.id }.merge(params)
     end
 
     it 'should be successful' do
-      do_post :series_id => fringe.id
-      response.should redirect_to series_index_path
+      do_post
+      expect(response).to redirect_to(series_index_path)
     end
 
     it 'should create viewings for each episode' do
-      lambda {
-        do_post :series_id => fringe.id
-      }.should change(user.viewings, :count).by(2)
+      expect { do_post }.to change(user.viewings, :count).by(2)
+    end
+
+    it 'should redirect to the home page if user not authorized' do
+      log_out
+      do_post
+
+      expect(response).to redirect_to(root_path)
     end
   end
 
   describe "POST 'update'" do
-    let! (:v1)  { FactoryGirl.create(:viewing, :user => user) }
+    let!(:v1)  { FactoryGirl.create(:viewing, user: user) }
 
     def do_post(params = {})
-      post :update, { :id => v1.id }.merge(params)
+      post :update, { id: v1.id }.merge(params)
     end
 
     it 'should be successful' do
       do_post
-      response.should redirect_to viewings_path
+
+      expect(response).to redirect_to(progressions_path)
     end
 
     it 'should mark the viewing as viewed' do
-      user.last_viewing(v1.series_id).should be_nil
+      expect(user.last_viewing(v1.series_id)).to be_nil
+
       do_post
-      user.last_viewing(v1.series_id).should_not be_nil
+
+      expect(user.last_viewing(v1.series_id)).to_not be_nil
+    end
+
+    it 'should redirect to the home page if user not authorized' do
+      v2 = FactoryGirl.create(:viewing, user: FactoryGirl.create(:user))
+
+      do_post id: v2.id
+
+      expect(response).to redirect_to(root_path)
     end
   end
 end
