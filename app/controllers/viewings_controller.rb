@@ -1,4 +1,6 @@
 class ViewingsController < ApplicationController
+  load_and_authorize_resource
+
   def create
     series = Series.find(params[:series_id])
     Viewing.create_with_series_for_user(series.id, current_user.id)

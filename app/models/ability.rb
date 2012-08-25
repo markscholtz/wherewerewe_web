@@ -14,6 +14,11 @@ class Ability
     #     can :read, :all
     #   end
 
+    if user
+      can :manage, Viewing, :user_id => user.id
+      can :read, Progression, :user_id => user.id
+    end
+
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
