@@ -1,49 +1,9 @@
 /*
- * = require h5bp
  * = require_self
- * = require_tree .
+ * = require twitter/bootstrap
+ * = require twitter/responsive
  */
 
-.viewing {
-  overflow: auto;
-}
-
-/* =============================================================================
-   Media Queries
-   ========================================================================== */
-
-@media only screen and (min-width: 480px) {
-
-/* ====================
-    INTERMEDIATE Width
-   ==================== */
-
-}
-
-@media only screen and (min-width: 768px) {
-
-/* ====================
-    WIDE Width
-   ==================== */
-
-  .viewing {
-    .last_viewing {
-      float: left;
-      width: 50%;
-    }
-
-    .next_viewing {
-      float: left;
-      width: 50%;
-    }
-  }
-
-}
-
-@media only screen and (min-width: 1140px) {
-
-/* ===============
-    Maximal Width
-   =============== */
-
+body {
+  padding-top: 60px;
 }
