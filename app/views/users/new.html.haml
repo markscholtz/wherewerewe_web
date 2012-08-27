@@ -1,8 +1,17 @@
-= form_for @user do |f|
-  = f.label :email, 'email'
-  = f.text_field :email
-  = f.label :password, 'password'
-  = f.password_field :password
-  = f.label :password_confirmation, 'confirm password'
-  = f.password_field :password_confirmation
-  = f.submit 'sign up'
+= form_for @user, html: { class: 'form-horizontal' } do |f|
+  %legend sign up
+  .control-group
+    = f.label :email, 'email', class: 'control-label'
+    .controls
+      = f.text_field :email
+  .control-group
+    = f.label :password, 'password', class: 'control-label'
+    .controls
+      = f.password_field :password
+  .control-group
+    = f.label :password_confirmation, 'confirm password', class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation
+  .control-group
+    .controls
+      = f.submit 'sign up', class: 'btn'

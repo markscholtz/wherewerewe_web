@@ -1,22 +1,24 @@
-%header
-  %h2 your series
+%header.page-header
+  %h1 your series
 - @progressions.each do |progression|
-  %section#progression
-    = link_to progression.series_name, progression.series
-    %p= progression.series_overview
-    %section#last_viewing
-      %h4 Last Viewed Episode
-      - if progression.last_viewing
-        %p= progression.last_viewing_episode_name
-        %p= progression.last_viewing_episode_overview
-      - else
-        %p No previously watched episodes
-    %section#next_viewing
-      %h4 Next Episode
-      - if progression.next_viewing
-        %p= progression.next_viewing_episode_name
-        %p= progression.next_viewing_episode_overview
-        = form_for progression.next_viewing do |f|
-          = f.submit 'Watch'
-      - else
-        %p No upcoming episodes
+  %section#progression.row.well
+    .span12
+      = link_to progression.series_name, progression.series
+      %p= progression.series_overview
+    .span12
+      %section#last_viewing.span5
+        %h2 Last Viewed Episode
+        - if progression.last_viewing
+          %p= progression.last_viewing_episode_name
+          %p= progression.last_viewing_episode_overview
+        - else
+          %p No previously watched episodes
+      %section#next_viewing.span5
+        %h2 Next Episode
+        - if progression.next_viewing
+          %p= progression.next_viewing_episode_name
+          %p= progression.next_viewing_episode_overview
+          = form_for progression.next_viewing do |f|
+            = f.button 'Watch', class: 'btn'
+        - else
+          %p No upcoming episodes

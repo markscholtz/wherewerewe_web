@@ -1,11 +1,18 @@
-%div
-  %h2 log in
-  = form_tag sessions_path do
-    = label_tag :email, 'email'
-    = text_field_tag :email
-    = label_tag :password, 'password'
-    = password_field_tag :password
-    = submit_tag 'log in'
-%div
-  %h2 Sign up
-  = link_to 'sign up', sign_up_path
+.row
+  .span8
+    = form_tag sessions_path, class: 'form-horizontal' do
+      %legend log in
+      .control-group
+        = label_tag :email, 'email', class: 'control-label'
+        .controls
+          = text_field_tag :email, nil, placeholder: 'email'
+      .control-group
+        = label_tag :password, 'password', class: 'control-label'
+        .controls
+          = password_field_tag :password, nil, placeholder: 'password'
+      .control-group
+        .controls
+          = button_tag 'log in', class: 'btn'
+  .span4
+    %legend sign up
+    = link_to 'sign up', sign_up_path

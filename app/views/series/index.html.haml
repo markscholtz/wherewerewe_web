@@ -1,10 +1,10 @@
-%header
-  %h2 series
+%header.page-header
+  %h1 series
 - @series.each do |s|
-  %section
-    %h3= s.name
+  %section.well
+    %h2= s.name
     %p= s.overview
     - if current_user && !Viewing.viewings_exit(user_id: current_user.id, series_id: s.id)
       = form_tag(viewings_path) do
         = hidden_field_tag 'series_id', s.id
-        = submit_tag 'Add to viewing list'
+        = submit_tag 'Add to viewing list', class: 'btn'

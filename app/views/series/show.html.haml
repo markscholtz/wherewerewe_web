@@ -1,12 +1,18 @@
-%section#series
-  %header
-    %h2= @series.name
-  - @series.seasons.order("number").each do |s|
-    %section#season
-      %header
-        %h3= "Season #{s.number}"
-      %ol
-        - s.episodes.order("number").each do |e|
-          %li
-            %section#episode{ :class => (e.watched?(current_user) ? "watched" : "") }
-              %h4= e.name
+%header.page-header
+  %h1= @series.name
+.tabbable.tabs-left
+  %ul.nav.nav-tabs
+    %li
+      %a{ href: '#series-overview' } series overview
+    - @series.seasons.order("number").each do |s|
+      %li{ class: 'active' }
+        %a{ href: '#season-' }= "Season #{s.number}"
+  .tab-content
+    #series-overview.tab-pane
+    - @series.seasons.order("number").each do |s|
+      #season-.tab-pane.active
+        %ol{ class: 'unstyled' }
+          - s.episodes.order("number").each do |e|
+            %li
+              %section#episode{ :class => (e.watched?(current_user) ? "watched" : "") }
+                %h3= e.name
