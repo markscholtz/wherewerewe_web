@@ -20,6 +20,7 @@
     -# = javascript_include_tag "modernizr"
 
     = csrf_meta_tag
+
   %body
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     .navbar.navbar-inverse.navbar-fixed-top
@@ -32,9 +33,9 @@
           = link_to 'where were we', root_path, class: 'brand'
           .nav-collapse.collapse
             %ul.nav
-              %li.active
+              %li{ class: params[:controller] == 'progressions' ? 'active' : '' }
                 = link_to 'watch', progressions_path
-              %li
+              %li{ class: params[:controller] == 'series' ? 'active' : '' }
                 = link_to 'search', series_index_path
               - if current_user
                 %li
