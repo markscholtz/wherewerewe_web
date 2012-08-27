@@ -25,12 +25,12 @@
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
-          %a.btn.btn-navbar{ 'data-toggle' => 'collapse', 'data-target' => '.nav-collapse' }
+          %button.btn.btn-navbar{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '.nav-collapse' }
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-            = link_to 'where were we', root_path, class: 'brand'
-          .nav-collapse
+          = link_to 'where were we', root_path, class: 'brand'
+          .nav-collapse.collapse
             %ul.nav
               %li.active
                 = link_to 'watch', progressions_path
