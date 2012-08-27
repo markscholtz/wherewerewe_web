@@ -43,26 +43,29 @@ feature 'View series details feature', %q{
     log_in @user
     visit progressions_path
     click_link 'Boston Legal'
-    current_path.should == series_path(@boston_legal)
+
+    expect(current_path).to eq(series_path(@boston_legal))
   end
 
   scenario 'Inspecting the series details page' do
     log_in @user
     visit series_path(@boston_legal)
-    page.should have_content @boston_legal.name
-    within(:xpath, '//section[@id="season"][1]') do
-      page.should have_content "Season #{@bl_s1.number}"
-      within(:xpath, ".//ol//li[1]") do
-        page.should have_content @bl_ep1.name
-        page.should have_css 'section.watched'
-      end
-      within(:xpath, ".//ol//li[2]") do
-        page.should have_content @bl_ep2.name
-        page.should_not have_css 'section.watched'
-      end
+
+    expect(page).to have_content(@boston_legal.name)
+
+    within('.nav.nav-tabs') do
+      expect(page).to have_content("Season #{@bl_s1.number}")
+      expect(page).to have_content("Season #{@bl_s2.number}")
     end
-    within(:xpath, '//section[@id="season"][2]') do
-      page.should have_content "Season #{@bl_s2.number}"
+
+    within(:xpath, "//ol//li[1]") do
+      expect(page).to have_content(@bl_ep1.name)
+      expect(page).to have_css('section.watched')
+    end
+
+    within(:xpath, "//ol//li[2]") do
+      expect(page).to     have_content(@bl_ep2.name)
+      expect(page).to_not have_css('section.watched')
     end
   end
 end
