@@ -25,6 +25,7 @@ gem 'modernizr'
 gem 'mysql2', '~> 0.3.11'
 gem 'sass'
 gem 'thin'
+gem 'httparty', '=0.8.2'
 gem 'tvdb_party'
 
 # Gems used only for assets and not required
