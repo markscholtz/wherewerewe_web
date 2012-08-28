@@ -18,12 +18,14 @@ gem 'rails', '3.2.6'
 # Bundle the extra gems:
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'cancan'
+gem 'foreman'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'modernizr'
 gem 'mysql2', '~> 0.3.11'
 gem 'rack-mini-profiler'
 gem 'sass'
+gem 'thin'
 gem 'tvdb_party'
 
 # Gems used only for assets and not required
