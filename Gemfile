@@ -23,7 +23,6 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'modernizr'
 gem 'mysql2', '~> 0.3.11'
-gem 'rack-mini-profiler'
 gem 'sass'
 gem 'thin'
 gem 'tvdb_party'
@@ -49,6 +48,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-doc'
   gem 'pry-rails'
+  gem 'rack-mini-profiler'
   gem 'rspec-rails'
 
   # remote needs to come before nav in order for nav to work on remote
