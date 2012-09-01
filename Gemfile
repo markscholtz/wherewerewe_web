@@ -44,6 +44,7 @@ group :development, :test do
   gem 'capybara'
   gem 'debugger-pry', :require => 'debugger/pry' # can get rid of this as pry-nav has most of the functionality I require
   gem 'factory_girl_rails'
+  gem 'fakeweb'
   gem 'fivemat'
   gem 'launchy'
   gem 'pry'
@@ -51,6 +52,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rack-mini-profiler'
   gem 'rspec-rails'
+  gem 'vcr'
 
   # remote needs to come before nav in order for nav to work on remote
   # debugging sessions
