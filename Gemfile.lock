@@ -73,6 +73,7 @@ GEM
     factory_girl_rails (3.5.0)
       factory_girl (~> 3.5.0)
       railties (>= 3.0.0)
+    fakeweb (1.3.0)
     ffi (1.1.0)
     fivemat (1.1.0)
     foreman (0.56.0)
@@ -195,6 +196,7 @@ GEM
     uglifier (1.2.6)
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
+    vcr (2.2.4)
     xpath (0.1.4)
       nokogiri (~> 1.3)
     yard (0.8.2.1)
@@ -210,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   debugger-pry
   factory_girl_rails
+  fakeweb
   fivemat
   foreman
   haml-rails
@@ -231,3 +234,4 @@ DEPENDENCIES
   thin
   tvdb_party
   uglifier (>= 1.0.3)
+  vcr

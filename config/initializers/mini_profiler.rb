@@ -1,5 +1,4 @@
 if Rails.env != 'production'
-  puts '----> Setting up MiniProfiler'
   Rack::MiniProfiler.config.position    = :right
-  Rack::MiniProfiler.config.auto_inject = false
+  Rack::MiniProfiler.config.auto_inject = true
 end
