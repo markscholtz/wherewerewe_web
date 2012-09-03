@@ -20,7 +20,6 @@ FactoryGirl.define do
   end
 
   factory :season do
-    sequence(:tvdb_id)
     sequence(:number)
 
     series
