@@ -54,10 +54,10 @@ class Viewing < ActiveRecord::Base
     first
   end
 
-  def self.viewings_exit(filter_ids)
+  def self.viewings_exist(filter_ids)
     where_string = ''
-    filter_ids.each_with_index do |filter_id, index|
-      where_string << "#{filter_id[0]} = #{filter_id[1]} and "
+    filter_ids.each_pair do |key, value|
+      where_string << "#{key} = #{value} and "
     end
     where_string = where_string[0, where_string.length - 5]
 
