@@ -40,7 +40,6 @@ class Viewing < ActiveRecord::Base
     joins(:season).
     where(where_string).
     order('viewed_at DESC').
-    limit(1).
     first
   end
 
@@ -50,7 +49,6 @@ class Viewing < ActiveRecord::Base
     where(:viewed_at => nil, :user_id => user_id, :series_id => series_id).
     where('seasons.number != 0').
     order('seasons.number, episodes.number').
-    limit(1).
     first
   end
 
