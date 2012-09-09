@@ -41,6 +41,10 @@ class Progression
     user.last_viewing(series.id)
   end
 
+  def last_viewing_season_number
+    last_viewing.season.number
+  end
+
   def last_viewing_episode_name
     last_viewing.episode.name
   end
@@ -51,6 +55,10 @@ class Progression
 
   def next_viewing
     user.next_viewing(series.id)
+  end
+
+  def next_viewing_season_number
+    next_viewing.season.number
   end
 
   def next_viewing_episode_name

@@ -27,7 +27,7 @@ describe Progression do
   end
 
   describe 'derived attributes' do
-    let (:progression) { FactoryGirl.build(:progression,
+    let(:progression) { FactoryGirl.build(:progression,
                                            user: user,
                                            series: boston_legal) }
 
@@ -46,7 +46,7 @@ describe Progression do
     end
 
     describe 'viewings' do
-      let!(:season)   { FactoryGirl.create(:season, series: boston_legal) }
+      let!(:season)   { FactoryGirl.create(:season, number: 1, series: boston_legal) }
       let!(:episode1) { FactoryGirl.create(:episode,
                                            name: 'Episode 1',
                                            overview: 'Overview ...',
@@ -62,6 +62,10 @@ describe Progression do
       describe 'last viewing attributes' do
         it "should derive the last viewing from the user's last viewing" do
           progression.last_viewing.should == viewing1
+        end
+
+        it 'should derive the last viewed season number from the last viewing' do
+          progression.last_viewing_season_number.should == 1
         end
 
         it 'should derive the last viewed episode name from the last viewing' do
@@ -84,8 +88,13 @@ describe Progression do
                                              series: boston_legal,
                                              season: season,
                                              episode: episode2) }
+
         it "should derive the next viewing from the user's next viewing" do
           progression.next_viewing.should == viewing2
+        end
+
+        it 'should derive the next viewed season number from the next viewing' do
+          progression.last_viewing_season_number.should == 1
         end
 
         it 'should derive the next viewed episode name from the next viewing' do

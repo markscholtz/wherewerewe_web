@@ -9,6 +9,7 @@
       %section#last_viewing.span5
         %h2 Last Viewed Episode
         - if progression.last_viewing
+          %p= "Season #{progression.last_viewing_season_number}"
           %p= progression.last_viewing_episode_name
           %p= progression.last_viewing_episode_overview
         - else
@@ -16,6 +17,7 @@
       %section#next_viewing.span5
         %h2 Next Episode
         - if progression.next_viewing
+          %p= "Season #{progression.next_viewing_season_number}"
           %p= progression.next_viewing_episode_name
           %p= progression.next_viewing_episode_overview
           = form_for progression.next_viewing do |f|
