@@ -11,14 +11,17 @@ feature 'User progressions feature', %q{
   let(:fringe)       { FactoryGirl.create(:series, name: 'Fringe',       overview: 'Supernatural stuff') }
   let(:boston_legal) { FactoryGirl.create(:series, name: 'Boston Legal', overview: 'Some funny lawyers') }
 
+  let(:f_s0)  { FactoryGirl.create(:season, series: fringe,       number: 0) }
   let(:f_s1)  { FactoryGirl.create(:season, series: fringe,       number: 1) }
   let(:bl_s1) { FactoryGirl.create(:season, series: boston_legal, number: 1) }
 
+  let(:f_ep0)  { FactoryGirl.create(:episode, series: fringe,       name: 'Fringe - Special',         overview: 'Special 1',  season: f_s0) }
   let(:f_ep1)  { FactoryGirl.create(:episode, series: fringe,       name: 'Fringe - Episode 1',       overview: 'Overview 1', season: f_s1) }
   let(:f_ep2)  { FactoryGirl.create(:episode, series: fringe,       name: 'Fringe - Episode 2',       overview: 'Overview 2', season: f_s1) }
   let(:f_ep3)  { FactoryGirl.create(:episode, series: fringe,       name: 'Fringe - Episode 3',       overview: 'Overview 3', season: f_s1) }
   let(:bl_ep1) { FactoryGirl.create(:episode, series: boston_legal, name: 'Boston Legal - Episode 1', overview: 'Overview 4', season: bl_s1) }
 
+  let!(:viewing0) { FactoryGirl.create(:viewing, user: user, episode: f_ep0,  season: f_s0,  series: fringe) }
   let!(:viewing1) { FactoryGirl.create(:viewing, user: user, episode: f_ep1,  season: f_s1,  series: fringe, viewed_at: 3.days.ago) }
   let!(:viewing2) { FactoryGirl.create(:viewing, user: user, episode: f_ep2,  season: f_s1,  series: fringe, viewed_at: 1.days.ago) }
   let!(:viewing3) { FactoryGirl.create(:viewing, user: user, episode: f_ep3,  season: f_s1,  series: fringe, viewed_at: 2.days.ago) }

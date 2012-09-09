@@ -10,9 +10,9 @@ describe Viewing do
   end
 
   describe 'associations' do
-    let (:episode) { FactoryGirl.create(:episode) }
-    let (:user)    { FactoryGirl.create(:user) }
-    let (:viewing) { FactoryGirl.create(:viewing, :episode => episode, :user => user) }
+    let(:episode) { FactoryGirl.create(:episode) }
+    let(:user)    { FactoryGirl.create(:user) }
+    let(:viewing) { FactoryGirl.create(:viewing, :episode => episode, :user => user) }
 
     it "should be destroyed along with it's episode" do
       episode.viewings.should include(viewing)
@@ -28,10 +28,10 @@ describe Viewing do
   end
 
   describe 'creation for a user given a series' do
-    let! (:mark)         { FactoryGirl.create(:user) }
-    let! (:boston_legal) { FactoryGirl.create(:series, :name => "Boston Legal") }
-    let! (:bl_ep1)       { FactoryGirl.create(:episode, :number => 1, :series => boston_legal) }
-    let! (:bl_ep2)       { FactoryGirl.create(:episode, :number => 2, :series => boston_legal) }
+    let!(:mark)         { FactoryGirl.create(:user) }
+    let!(:boston_legal) { FactoryGirl.create(:series, :name => "Boston Legal") }
+    let!(:bl_ep1)       { FactoryGirl.create(:episode, :number => 1, :series => boston_legal) }
+    let!(:bl_ep2)       { FactoryGirl.create(:episode, :number => 2, :series => boston_legal) }
 
     it 'should create a new viewing for each episode of the series' do
       lambda {
@@ -117,6 +117,13 @@ describe Viewing do
         it 'should return the most recently viewed viewing of any episode for that series for the given user' do
           Viewing.last_viewed(user_id: @mark.id, series_id: @house.id).should == @mark_v4
         end
+
+        it 'should ignore episodes from specials seasons' do
+          specials = FactoryGirl.create(:season, series: @house, number: 0)
+          special = FactoryGirl.create(:episode, series: @house, season: specials)
+          FactoryGirl.create(:viewing, user: @mark, episode: special, season: specials, series: @house, viewed_at: Time.now)
+          expect(Viewing.last_viewed(user_id: @mark.id, series_id: @house.id)).to eq(@mark_v4)
+        end
       end
     end
 
@@ -144,19 +151,28 @@ describe Viewing do
           Viewing.next(@jo.id, @grays_anatomy.id).should be_nil
         end
       end
+
+      context 'when a special episode exists' do
+        it 'should ignore episodes from specials seasons' do
+          specials = FactoryGirl.create(:season, series: @house, number: 0)
+          special = FactoryGirl.create(:episode, series: @house, season: specials)
+          FactoryGirl.create(:viewing, user: @mark, episode: special, season: specials, series: @house)
+          expect(Viewing.next(@mark.id, @house.id)).to eq(@mark_v7)
+        end
+      end
     end
   end
 
   describe 'methods to check' do
-    let! (:mark)          { FactoryGirl.create(:user) }
-    let! (:boston_legal ) { FactoryGirl.create(:series, :name => "Boston Legal") }
-    let! (:bl_s1)         { FactoryGirl.create(:season, :number => 1, :series => boston_legal) }
-    let! (:bl_ep1)        { FactoryGirl.create(:episode, :number => 1, :series => boston_legal, :season => bl_s1) }
-    let! (:mark_v1)       { FactoryGirl.create(:viewing, :user => mark, :episode => bl_ep1, :season => bl_s1, :series => boston_legal,  :viewed_at => 3.days.ago) }
+    let!(:mark)          { FactoryGirl.create(:user) }
+    let!(:boston_legal ) { FactoryGirl.create(:series, :name => "Boston Legal") }
+    let!(:bl_s1)         { FactoryGirl.create(:season, :number => 1, :series => boston_legal) }
+    let!(:bl_ep1)        { FactoryGirl.create(:episode, :number => 1, :series => boston_legal, :season => bl_s1) }
+    let!(:mark_v1)       { FactoryGirl.create(:viewing, :user => mark, :episode => bl_ep1, :season => bl_s1, :series => boston_legal,  :viewed_at => 3.days.ago) }
 
     context 'existance of viewings for a user and series' do
       it 'should return true is viewings exist' do
-        Viewing.viewings_exit(user_id: mark.id, series_id: boston_legal.id).should be_true
+        Viewing.viewings_exist(user_id: mark.id, series_id: boston_legal.id).should be_true
       end
     end
   end

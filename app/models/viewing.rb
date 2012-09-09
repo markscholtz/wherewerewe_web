@@ -28,11 +28,16 @@ class Viewing < ActiveRecord::Base
   public
 
   def self.last_viewed(filter_ids)
-    where_string = 'viewed_at IS NOT NULL'
-    filter_ids.each_with_index do |filter_id, index|
-      where_string << " and #{filter_id[0]} = #{filter_id[1]}"
+    where_string = 'viewed_at IS NOT NULL and seasons.number != 0'
+    filter_ids.each_pair do |key, value|
+      if key.to_s == 'series_id'
+        where_string << " and viewings.#{key} = #{value}"
+      else
+        where_string << " and #{key} = #{value}"
+      end
     end
 
+    joins(:season).
     where(where_string).
     order('viewed_at DESC').
     limit(1).
@@ -43,15 +48,16 @@ class Viewing < ActiveRecord::Base
     joins(:season).
     joins(:episode).
     where(:viewed_at => nil, :user_id => user_id, :series_id => series_id).
+    where('seasons.number != 0').
     order('seasons.number, episodes.number').
     limit(1).
     first
   end
 
-  def self.viewings_exit(filter_ids)
+  def self.viewings_exist(filter_ids)
     where_string = ''
-    filter_ids.each_with_index do |filter_id, index|
-      where_string << "#{filter_id[0]} = #{filter_id[1]} and "
+    filter_ids.each_pair do |key, value|
+      where_string << "#{key} = #{value} and "
     end
     where_string = where_string[0, where_string.length - 5]
 
