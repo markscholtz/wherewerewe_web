@@ -117,6 +117,13 @@ describe Viewing do
         it 'should return the most recently viewed viewing of any episode for that series for the given user' do
           Viewing.last_viewed(user_id: @mark.id, series_id: @house.id).should == @mark_v4
         end
+
+        it 'should ignore episodes from specials seasons' do
+          specials = FactoryGirl.create(:season, series: @house, number: 0)
+          special = FactoryGirl.create(:episode, series: @house, season: specials)
+          FactoryGirl.create(:viewing, user: @mark, episode: special, season: specials, series: @house, viewed_at: Time.now)
+          expect(Viewing.last_viewed(user_id: @mark.id, series_id: @house.id)).to eq(@mark_v4)
+        end
       end
     end
 
@@ -142,6 +149,15 @@ describe Viewing do
       context 'when all episodes have been watched' do
         it 'should return nil for for the given user and series' do
           Viewing.next(@jo.id, @grays_anatomy.id).should be_nil
+        end
+      end
+
+      context 'when a special episode exists' do
+        it 'should ignore episodes from specials seasons' do
+          specials = FactoryGirl.create(:season, series: @house, number: 0)
+          special = FactoryGirl.create(:episode, series: @house, season: specials)
+          FactoryGirl.create(:viewing, user: @mark, episode: special, season: specials, series: @house)
+          expect(Viewing.next(@mark.id, @house.id)).to eq(@mark_v7)
         end
       end
     end
