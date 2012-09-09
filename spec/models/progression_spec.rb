@@ -48,6 +48,7 @@ describe Progression do
     describe 'viewings' do
       let!(:season)   { FactoryGirl.create(:season, number: 1, series: boston_legal) }
       let!(:episode1) { FactoryGirl.create(:episode,
+                                           number: 1,
                                            name: 'Episode 1',
                                            overview: 'Overview ...',
                                            series: boston_legal,
@@ -68,6 +69,10 @@ describe Progression do
           progression.last_viewing_season_number.should == 1
         end
 
+        it 'should derive the last viewed episode number from the last viewing' do
+          progression.last_viewing_episode_number.should == 1
+        end
+
         it 'should derive the last viewed episode name from the last viewing' do
           progression.last_viewing_episode_name.should == 'Episode 1'
         end
@@ -79,6 +84,7 @@ describe Progression do
 
       describe 'next viewing attributes' do
         let!(:episode2) { FactoryGirl.create(:episode,
+                                             number: 2,
                                              name: 'Episode 2',
                                              overview: 'Yet another overview ...',
                                              series: boston_legal,
@@ -94,7 +100,11 @@ describe Progression do
         end
 
         it 'should derive the next viewed season number from the next viewing' do
-          progression.last_viewing_season_number.should == 1
+          progression.next_viewing_season_number.should == 1
+        end
+
+        it 'should derive the next viewed episode number from the next viewing' do
+          progression.next_viewing_episode_number.should == 2
         end
 
         it 'should derive the next viewed episode name from the next viewing' do

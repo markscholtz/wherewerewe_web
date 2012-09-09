@@ -45,6 +45,10 @@ class Progression
     last_viewing.season.number
   end
 
+  def last_viewing_episode_number
+    last_viewing.episode.number
+  end
+
   def last_viewing_episode_name
     last_viewing.episode.name
   end
@@ -60,6 +64,11 @@ class Progression
   def next_viewing_season_number
     next_viewing.season.number
   end
+
+  def next_viewing_episode_number
+    next_viewing.episode.number
+  end
+
 
   def next_viewing_episode_name
     next_viewing.episode.name
