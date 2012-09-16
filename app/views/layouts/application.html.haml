@@ -34,7 +34,7 @@
           .nav-collapse.collapse
             %ul.nav
               %li{ class: params[:controller] == 'progressions' ? 'active' : '' }
-                = link_to 'watch', progressions_path
+                = link_to 'progress', progressions_path
               %li{ class: params[:controller] == 'series' ? 'active' : '' }
                 = link_to 'search', series_index_path
               - if current_user
