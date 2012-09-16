@@ -1,27 +1,30 @@
 %header.page-header
   %h1 your series
 - @progressions.each do |progression|
-  %section.progression.row.well
+  .row
     .span12
-      = link_to progression.series do
-        %h2= progression.series_name
-      %p= progression.series_overview
-    .span12
-      %section#last_viewing.span5
-        %h3 Last
-        - if progression.last_viewing
-          %p= "Season #{progression.last_viewing_season_number}, Episode #{progression.last_viewing_episode_number}"
-          %p= progression.last_viewing_episode_name
-          %p= progression.last_viewing_episode_overview
-        - else
-          %p No previously watched episodes
-      %section#next_viewing.span5
-        %h3 Next
-        - if progression.next_viewing
-          %p= "Season #{progression.next_viewing_season_number}, Episode #{progression.next_viewing_episode_number}"
-          %p= progression.next_viewing_episode_name
-          %p= progression.next_viewing_episode_overview
-          = form_for progression.next_viewing do |f|
-            = f.button 'Watch', class: 'btn'
-        - else
-          %p No upcoming episodes
+      %section.progression
+        = link_to progression.series do
+          %h2= progression.series_name
+        %p= progression.series_overview
+        .row
+          .span6
+            %section#last_viewing
+              %h3 Last
+              - if progression.last_viewing
+                %p= "Season #{progression.last_viewing_season_number}, Episode #{progression.last_viewing_episode_number}"
+                %p= progression.last_viewing_episode_name
+                %p= progression.last_viewing_episode_overview
+              - else
+                %p No previously watched episodes
+          .span6
+            %section#next_viewing
+              %h3 Next
+              - if progression.next_viewing
+                %p= "Season #{progression.next_viewing_season_number}, Episode #{progression.next_viewing_episode_number}"
+                %p= progression.next_viewing_episode_name
+                %p= progression.next_viewing_episode_overview
+                = form_for progression.next_viewing do |f|
+                  = f.button 'Watch', class: 'btn'
+              - else
+                %p No upcoming episodes
