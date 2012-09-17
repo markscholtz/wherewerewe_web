@@ -1,2 +1,5 @@
-//= require_self
-//= require_directory ./twitter
+/*
+ * = require_self
+ * = require twitter/bootstrap-collapse
+ * = require twitter/bootstrap-transition
+ */
