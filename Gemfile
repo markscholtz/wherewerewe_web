@@ -17,7 +17,6 @@ gem 'rails', '3.2.13'
 
 # Bundle the extra gems:
 gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'cancan'
 gem 'foreman'
 gem 'haml-rails'
 gem 'jquery-rails'

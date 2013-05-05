@@ -33,7 +33,6 @@ GEM
     awesome_print (1.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
-    cancan (1.6.8)
     capybara (1.1.2)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -208,7 +207,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   bcrypt-ruby
-  cancan
   capybara
   coffee-rails (~> 3.2.1)
   debugger-pry

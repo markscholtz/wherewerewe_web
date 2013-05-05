@@ -1,9 +1,9 @@
 class ProgressionsController < ApplicationController
-  load_and_authorize_resource
-
   def index
     unless current_user
-      raise CanCan::AccessDenied
+      redirect_to root_path, alert: "Please log in" and return
     end
+
+    @progressions = Progression.create_progressions(current_user, current_user.series)
   end
 end
