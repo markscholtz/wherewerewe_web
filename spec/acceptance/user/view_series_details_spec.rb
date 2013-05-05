@@ -58,12 +58,12 @@ feature 'View series details feature', %q{
       expect(page).to have_content("Season #{@bl_s2.number}")
     end
 
-    within(:xpath, "//ol//li[1]") do
+    within(:xpath, "(//ol//li)[1]") do
       expect(page).to have_content(@bl_ep1.name)
       expect(page).to have_css('section.watched')
     end
 
-    within(:xpath, "//ol//li[2]") do
+    within(:xpath, "(//ol//li)[2]") do
       expect(page).to     have_content(@bl_ep2.name)
       expect(page).to_not have_css('section.watched')
     end
