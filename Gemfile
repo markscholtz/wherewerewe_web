@@ -42,7 +42,7 @@ end
 group :development, :test do
   gem 'awesome_print'
   gem 'capybara'
-  gem 'debugger-pry', :require => 'debugger/pry' # can get rid of this as pry-nav has most of the functionality I require
+  gem 'debugger'
   gem 'factory_girl_rails'
   gem 'fakeweb'
   gem 'fivemat'
