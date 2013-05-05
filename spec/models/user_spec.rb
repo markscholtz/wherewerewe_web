@@ -80,6 +80,9 @@ describe User do
 
     it 'should display series progress for each series' do
       user.progressions.count.should == 2
+      user.progressions.each do |progression|
+        expect(progression.user).to eq(user)
+      end
     end
   end
 end

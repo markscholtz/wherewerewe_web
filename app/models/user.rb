@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def progressions
-    Progression.accessible_by(Ability.new(self))
+    Progression.create_progressions(self, series)
   end
 
   def last_viewing(series_id)
