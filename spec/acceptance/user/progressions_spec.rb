@@ -36,7 +36,7 @@ feature 'User progressions feature', %q{
     log_in user
     visit progressions_path
 
-    within(:xpath, "//section[@id='progression'][1]") do
+    within(:xpath, "(//section[@class='progression'])[1]") do
       expect(page).to have_content('Fringe')
       expect(page).to have_content('Supernatural stuff')
       within('#last_viewing') do
@@ -50,7 +50,7 @@ feature 'User progressions feature', %q{
       end
     end
 
-    within(:xpath, "//section[@id='progression'][2]") do
+    within(:xpath, "(//section[@class='progression'])[2]") do
       expect(page).to have_content('Boston Legal')
       expect(page).to have_content('Some funny lawyers')
       within('#last_viewing') do
